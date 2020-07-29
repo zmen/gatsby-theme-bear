@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { navigate } from '@reach/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useLocation } from "@reach/router";
 
 import { Tag, tagIconMap } from '../utils/Tag';
 
@@ -14,11 +15,16 @@ const TagName = styled.span`
 const Tags = ({ tags } : { tags: Tag[] }) => {
   if (tags.length === 0) return null;
 
+  const locationInfo = useLocation();
+  const tagMatch = locationInfo.search.match(/[\&\?]tag=(\w+)/);
+  const matchedTag = tagMatch ? tagMatch[1] : null;
+
   return (
     <ul>
       {tags.map(d => {
         return (<li
           key={d.tagname}
+          style={{ color: matchedTag === d.tagname ? '#ee3918' : '#eee' }}
           onClick={(e) => { e.stopPropagation(); navigate(d.to ? d.to : `?tag=${d.tagname}`); }}
         >
           <div>

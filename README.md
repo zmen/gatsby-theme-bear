@@ -17,8 +17,8 @@ Inspired by the [Bear App](https://bear.app/).
   - [ ] Search
   - [ ] Comment
   - [ ] Article Infomation
-  - [ ] Tag Highlight
-  - [ ] Article Highlight
+  - [x] Tag Highlight
+  - [x] Article Highlight
   - [ ] Window Resize
   - [ ] Window Maximize/Minimize
   - [x] Assets(Image) Management

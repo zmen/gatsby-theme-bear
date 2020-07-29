@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
+import { useLocation } from "@reach/router";
 
-const ArticleListItemContainer = styled.div`
+interface Props {
+  active: boolean;
+}
+
+const ArticleListItemContainer = styled.div.attrs((props: Props) => ({
+  style: { background: props.active ? '#eee' : '#fff' }
+}))<Props>`
   display: flex;
 `;
 
@@ -26,14 +33,24 @@ const ArticleTitle = styled.h3`
   margin-top: 12px;
   margin-bottom: 6px;
 `;
+
 const ArticleContent = styled.p`
   font-size: 14px;
   color: #8f8f8f;
   margin-bottom: 8px;
 `;
 
+const HighlightBar = styled.div`
+  width: 16px;
+  background: #ee3918;
+`;
+
 const ArticleListItem = ({ title, date, content, slug } : { title: string, date: string, content: string, slug: string }) => {
-  return (<ArticleListItemContainer>
+
+  const locationInfo = useLocation();
+
+  return (<ArticleListItemContainer active={locationInfo.pathname === slug}>
+    {locationInfo.pathname === slug && <HighlightBar />}
     <DateBlock>{ date }</DateBlock> 
     <Link to={slug + location.search}>
       <MainBlock>
