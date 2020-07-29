@@ -21,10 +21,10 @@ Inspired by the [Bear App](https://bear.app/).
   - [ ] Article Highlight
   - [ ] Window Resize
   - [ ] Window Maximize/Minimize
-  - [ ] Assets(Image) Management
+  - [x] Assets(Image) Management
   - [ ] Mobile Adaptive
 - [ ] Refactor
-  - [ ] All Typescript
+  - [x] All Typescript
 - [ ] Pages
   - [ ] Setting
   - [ ] About
