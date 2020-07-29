@@ -1,16 +1,17 @@
-import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
+import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import { calcTime } from '../utils/Date';
 
 import { buildTags } from '../utils/Tag';
 
 const defaultStore = {
   posts: [],
   tags: []
-}
+};
 
-const PostContext = React.createContext(defaultStore)
+const PostContext = React.createContext(defaultStore);
 
-export default PostContext
+export default PostContext;
 
 export const Provider = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -21,6 +22,7 @@ export const Provider = ({ children }) => {
             frontmatter {
               title
               tags
+              created
             }
             fields {
               slug
@@ -30,17 +32,18 @@ export const Provider = ({ children }) => {
         }
       }
     }
-  `)
+  `);
+
   const posts = data.allMarkdownRemark.edges.map(edge => ({
     title: edge.node.frontmatter.title,
-    date: '1月',
+    date: calcTime(edge.node.frontmatter.created),
     content: edge.node.excerpt,
     slug: edge.node.fields.slug
-  }))
+  }));
 
   const rawTags = data.allMarkdownRemark.edges.map(edge => {
     return edge.node.frontmatter.tags
-  })
+  });
 
   const tags = buildTags(rawTags);
 
@@ -48,5 +51,5 @@ export const Provider = ({ children }) => {
     <PostContext.Provider value={{ posts, tags }}>
       { children }
     </PostContext.Provider>
-  )
-}
+  );
+};

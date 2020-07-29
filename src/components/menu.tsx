@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import styled from 'styled-components';
 import { navigate } from '@reach/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,8 +29,8 @@ const Tags = ({ tags } : { tags: Tag[] }) => {
         </li>)
       })}
     </ul>
-  )
-}
+  );
+};
 
 const MenuContainer = styled.div`
   padding-top: 32px;
@@ -39,7 +39,7 @@ const MenuContainer = styled.div`
   width: 100%;
   height: 100%;
   color: #eee;
-`
+`;
 
 const Menu = ({ tags } : { tags: Tag[] }) => {
 
@@ -48,7 +48,7 @@ const Menu = ({ tags } : { tags: Tag[] }) => {
       <Tags tags={menus} />
       <Tags tags={tags} />
     </MenuContainer>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;

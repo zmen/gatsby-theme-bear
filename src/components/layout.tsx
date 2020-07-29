@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { delay, map } from 'rxjs/operators';
 import { useObservable } from 'rxjs-hooks';
 
-import Header from "./header"
-import Resizer from "./resizer"
-import "./layout.css"
-import "../utils/fontawesome"
+import Header from './header';
+import Resizer from './resizer';
+import './layout.css';
+import '../utils/fontawesome';
 
 const AppContainer = styled.div`
   border-radius: 4px;
@@ -17,7 +17,7 @@ const AppContainer = styled.div`
   position: relative;
   display: flex;
   overflow: hidden;
-`
+`;
 
 interface Props {
   width: number;
@@ -31,7 +31,7 @@ const ArticleArea = styled.main`
   flex: 1;
   position: relative;
   overflow: scroll;
-`
+`;
 
 const Layout = ({ children, left, mid }) => {
 
@@ -53,7 +53,7 @@ const Layout = ({ children, left, mid }) => {
       <Resizer left={delayedTagWidth + delayedListWidth} setData={setListWidth} relateEle={rightEle}></Resizer>
       <ArticleArea>{children}</ArticleArea>
     </AppContainer>
-  )
+  );
 
   function useDelayedValue<T> (x: T, initialValue: T, delayTime: number): T {
     const width = useObservable(
@@ -67,6 +67,6 @@ const Layout = ({ children, left, mid }) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;

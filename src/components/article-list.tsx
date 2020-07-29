@@ -1,7 +1,7 @@
-import React from "react"
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
-import ArticleListItem from './article-list-item'
+import ArticleListItem from './article-list-item';
 
 const ArticleListContainer = styled.div`
   padding-top: 22px;
@@ -10,7 +10,7 @@ const ArticleListContainer = styled.div`
   border-right: 1px solid #eee;
   overflow-y: scroll;
   overflow-x: hidden;
-`
+`;
 
 const ArticleList = ({ articles }) => {
   return (
@@ -26,6 +26,6 @@ const ArticleList = ({ articles }) => {
       })}
     </ArticleListContainer>
   )
-}
+};
 
-export default ArticleList
+export default ArticleList;

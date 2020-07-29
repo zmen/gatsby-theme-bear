@@ -1,3 +1,7 @@
+/**
+ * Transform valid date string to relative date
+ * @param date - any valid date string
+ */
 export function calcTime (date: string): string {
   const now = Date.now()
   const target = new Date(date)
@@ -11,6 +15,10 @@ export function calcTime (date: string): string {
   return `${Math.floor(days / 365)}Y`
 }
 
+/**
+ * mileseconds to day
+ * @param ms
+ */
 function msToDay (ms: number): number {
   return Math.floor(ms / 1000 / 3600 / 24)
 }

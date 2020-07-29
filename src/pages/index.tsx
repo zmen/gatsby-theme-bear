@@ -1,22 +1,22 @@
-import React, { useContext } from "react"
-import styled from 'styled-components'
+import React, { useContext } from 'react';
+import styled from 'styled-components';
 
-import PostContext from '../context/PostContext'
+import PostContext from '../context/PostContext';
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from '../components/layout';
+import SEO from '../components/seo';
 
-import Menu from "../components/menu"
-import ArticleList from "../components/article-list"
+import Menu from '../components/menu';
+import ArticleList from '../components/article-list';
 
-import BearLogo from '../assets/bear.svg'
+import BearLogo from '../assets/bear.svg';
 
 const HomeLogo = styled.img`
   position: absolute;
   bottom: 0;
-`
+`;
 const IndexPage = () => {
-  const { posts, tags } = useContext(PostContext)
+  const { posts, tags } = useContext(PostContext);
   return (
     <Layout
       left={<Menu tags={tags} />}
@@ -25,7 +25,7 @@ const IndexPage = () => {
       <SEO title="Home" />
       <HomeLogo src={BearLogo} alt="" />
     </Layout>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;

@@ -1,3 +1,6 @@
+/**
+ * clear document selection
+ */
 export function clearSelection (): void {
   if (window.getSelection) {
     const selection = window.getSelection();

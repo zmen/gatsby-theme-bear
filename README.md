@@ -14,6 +14,9 @@ Inspired by the [Bear App](https://bear.app/).
 ## Progress
 
 - [ ] Features
+  - [ ] Search
+  - [ ] Comment
+  - [ ] Article Infomation
   - [ ] Tag Highlight
   - [ ] Article Highlight
   - [ ] Window Resize
