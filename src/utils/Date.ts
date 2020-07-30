@@ -1,3 +1,4 @@
+import dateformat from 'dateformat';
 /**
  * Transform valid date string to relative date
  * @param date - any valid date string
@@ -22,3 +23,5 @@ export function calcTime (date: string): string {
 function msToDay (ms: number): number {
   return Math.floor(ms / 1000 / 3600 / 24)
 }
+
+export default dateformat;

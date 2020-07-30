@@ -63,8 +63,11 @@ export const query = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
+      rawMarkdownBody
       frontmatter {
         title
+        tags
+        created
       }
     }
   }

@@ -509,9 +509,13 @@ th {
   font-weight: bold;
 }
 ol li {
+  padding-top: 2px;
+  padding-bottom: 2px;
   padding-left: 0;
 }
 ul li {
+  padding-top: 2px;
+  padding-bottom: 2px;
   padding-left: 0;
 }
 li > ol {

@@ -30,6 +30,7 @@ const MainBlock = styled.div`
 
 const ArticleTitle = styled.h3`
   font-size: 16px;
+  color: rgb(36, 41, 46);
   margin-top: 12px;
   margin-bottom: 6px;
 `;

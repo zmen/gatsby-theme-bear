@@ -30,7 +30,8 @@ const ListContainer = styled.div.attrs((props: Props) => ({
 const ArticleArea = styled.main`
   flex: 1;
   position: relative;
-  overflow: scroll;
+  overflow: hidden;
+  height: 100%;
 `;
 
 const Layout = ({ children, left, mid }) => {

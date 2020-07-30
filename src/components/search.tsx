@@ -25,15 +25,14 @@ const SearchInput = styled.input`
 const SearchIcon = styled(FontAwesomeIcon).attrs({ icon: 'search' })`
   color: #ccc;
   position: absolute;
-  right: 24px;
+  right: 30px;
   top: 50%;
-  transform: translateY(-10px) scale(.8);
+  transform: translateY(-6px);
 `;
 
 const Search = ({ text, setText }) => {
 
   return <SearchContainer>
-    {/* <FontAwesomeIcon icon="search" /> */}
     <SearchIcon />
     <SearchInput
       placeholder="search article"

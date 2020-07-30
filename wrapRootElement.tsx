@@ -1,5 +1,5 @@
-import React from 'react'
-import { Provider } from './src/context/PostContext'
+import React from 'react';
+import { Provider } from './src/context/PostContext';
 
 export default ({ element }) => {
   return (
@@ -7,4 +7,4 @@ export default ({ element }) => {
       {element}
     </Provider>
   )
-}
+};
