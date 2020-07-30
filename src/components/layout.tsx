@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { delay, map } from 'rxjs/operators';
 import { useObservable } from 'rxjs-hooks';
 
+import GeometryContext from '../context/GeometryContext';
 import Header from './header';
 import Resizer from './resizer';
 import './layout.css';
@@ -25,13 +26,18 @@ interface Props {
 
 const ListContainer = styled.div.attrs((props: Props) => ({
   style: { width: props.width + 'px' }
-}))<Props>`flex-shrink: 0;`;
+}))<Props>`
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width .3s;
+`;
 
 const ArticleArea = styled.main`
   flex: 1;
   position: relative;
   overflow: hidden;
   height: 100%;
+  transition: width .3s;
 `;
 
 const Layout = ({ children, left, mid }) => {
@@ -39,19 +45,18 @@ const Layout = ({ children, left, mid }) => {
   const leftEle = useRef(null);
   const rightEle = useRef(null);
 
-  const [tagWidth, setTagWidth] = useState(200);
-  const [listWidth, setListWidth] = useState(300);
+  const { state: { tagColWidth, articleColWidth }, dispatch } = useContext(GeometryContext);
 
-  const delayedTagWidth = useDelayedValue<number>(tagWidth, 200, 200);
-  const delayedListWidth = useDelayedValue<number>(listWidth, 300, 200);
+  const delayedTagWidth = useDelayedValue<number>(tagColWidth, 200, 200);
+  const delayedListWidth = useDelayedValue<number>(articleColWidth, 200, 200);
 
   return (
     <AppContainer>
       <Header />
       <ListContainer width={delayedTagWidth} ref={leftEle}>{left}</ListContainer>
-      <Resizer left={delayedTagWidth} setData={setTagWidth} relateEle={leftEle}></Resizer>
+      <Resizer left={delayedTagWidth} setData={value => dispatch({type: 'setTagColWidth', value})} relateEle={leftEle}></Resizer>
       <ListContainer width={delayedListWidth} ref={rightEle}>{mid}</ListContainer>
-      <Resizer left={delayedTagWidth + delayedListWidth} setData={setListWidth} relateEle={rightEle}></Resizer>
+      <Resizer left={delayedTagWidth + delayedListWidth} setData={value => dispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>
       <ArticleArea>{children}</ArticleArea>
     </AppContainer>
   );

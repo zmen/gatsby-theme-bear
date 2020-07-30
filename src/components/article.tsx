@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Popover } from 'antd';
 import dateformat from '../utils/Date';
 import { analyzeText } from '../utils/TextStatistics';
+import GeometryContext from '../context/GeometryContext';
 
 const ArticleContainer = styled.div`
   padding-left: 32px;
@@ -60,9 +61,28 @@ const PopoverContentDate = styled.div`
   padding-left: 16px;
 `;
 
+const LayoutSwitcherContainer = styled.div`
+  display: flex;
+  height: 60px;
+  padding: 12px;
+`;
+
+const LayoutSwitcherItem = styled.div`
+  flex: 1;
+  padding: 0 6px;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:not(:last-child) {
+    border-right: 1px solid #eee;
+  }
+`;
+
 const Article = ({ markdownRemark }) => {
 
   const [infoVisible, setInfoVisible] = useState(false);
+  const [layoutSettingVisible, setLayoutSettingVisible] = useState(false);
 
   function renderPopoverContent (created: string, rawMarkdownBody: string) {
     const createdDate = new Date(created);
@@ -94,7 +114,17 @@ const Article = ({ markdownRemark }) => {
         </PopoverContentBlock>
       </PopoverContentLine>
     </PopoverContentContainer>;
-  };
+  }
+
+  function renderLayoutSwitcher () {
+    const { dispatch } = useContext(GeometryContext);
+
+    return <LayoutSwitcherContainer style={{display: 'flex'}}>
+      <LayoutSwitcherItem onClick={() => dispatch({type: 'resetLayout'})}>Layout-A</LayoutSwitcherItem>
+      <LayoutSwitcherItem onClick={() => dispatch({type: 'switchNoTagMode'})}>Layout-B</LayoutSwitcherItem>
+      <LayoutSwitcherItem onClick={() => dispatch({type: 'switchZenMode'})}>Layout-C</LayoutSwitcherItem>
+    </LayoutSwitcherContainer>
+  }
 
   return (<ArticleContainer>
     <MarkdownBody className="markdown-body" dangerouslySetInnerHTML={{ __html: markdownRemark.html }} />
@@ -108,9 +138,20 @@ const Article = ({ markdownRemark }) => {
         visible={infoVisible}
         onVisibleChange={setInfoVisible}
       >
-        <FontAwesomeIcon data-tip data-for="a-info" data-event="click" icon="info-circle" />
+        <FontAwesomeIcon icon="info-circle" />
       </Popover>
-      <FontAwesomeIcon icon="columns" />
+
+      <Popover
+        arrowPointAtCenter
+        trigger="click"
+        title={null}
+        placement="topRight"
+        content={renderLayoutSwitcher()}
+        visible={layoutSettingVisible}
+        onVisibleChange={setLayoutSettingVisible}
+      >
+        <FontAwesomeIcon icon="columns" />
+      </Popover>
     </ArticleInfoContainer>
   </ArticleContainer>)
 };
