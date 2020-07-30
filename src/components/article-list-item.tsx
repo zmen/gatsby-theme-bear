@@ -34,7 +34,7 @@ const ArticleTitle = styled.h3`
   margin-bottom: 6px;
 `;
 
-const ArticleContent = styled.p`
+const ArticleContent = styled.div`
   font-size: 14px;
   color: #8f8f8f;
   margin-bottom: 8px;
@@ -45,7 +45,15 @@ const HighlightBar = styled.div`
   background: #ee3918;
 `;
 
-const ArticleListItem = ({ title, date, content, slug } : { title: string, date: string, content: string, slug: string }) => {
+interface ArticleListItemProps {
+  title: string;
+  date: string;
+  content: string;
+  slug: string;
+  matchText: string;
+}
+
+const ArticleListItem = ({ title, date, content, slug, matchText } : ArticleListItemProps) => {
 
   const locationInfo = useLocation();
 
@@ -54,11 +62,25 @@ const ArticleListItem = ({ title, date, content, slug } : { title: string, date:
     <DateBlock>{ date }</DateBlock> 
     <Link to={slug + location.search}>
       <MainBlock>
-        <ArticleTitle className="two-lines">{title}</ArticleTitle>
-        <ArticleContent className="two-lines">{content}</ArticleContent>
+        <ArticleTitle className="two-lines">{HighlightText({ text: title, pattern: matchText })}</ArticleTitle>
+        <ArticleContent className="two-lines">{HighlightText({ text: content, pattern: matchText })}</ArticleContent>
       </MainBlock>
     </Link>
   </ArticleListItemContainer>);
 };
 
 export default ArticleListItem;
+
+const HighlightTextWrapper = styled.p`
+  padding: 0;
+  margin: 0;
+  & strong {
+    color: #ee3918;
+  }
+`;
+
+function HighlightText ({ text, pattern }) {
+  if (pattern === '') return <HighlightTextWrapper>{text}</HighlightTextWrapper>;
+  const parsedText = text.replace(new RegExp(`(${pattern})`, 'ig'), '<strong>$1</strong>');
+  return <HighlightTextWrapper dangerouslySetInnerHTML={{ __html: parsedText }} />
+}
