@@ -1,13 +1,15 @@
 import React, { useReducer } from 'react';
 
-const defaultStore = {
-  tagColWidth: 200,
-  articleColWidth: 200,
-  toTop: 0,
-  toLeft: 0,
-  toRight: 0,
-  toBottom: 0
-};
+interface Store {
+  tagColWidth: number;
+  articleColWidth: number;
+  toTop: number;
+  toLeft: number;
+  toRight: number;
+  toBottom: number;
+}
+
+const defaultStore = getDefaultStore();
 
 const GeometryContext = React.createContext({ state: defaultStore, dispatch: null });
 
@@ -16,21 +18,28 @@ interface ReducerAction<T> {
   value: T;
 }
 
-const reducer = (state, action: ReducerAction<number>) => {
+const reducer = (state: Store, action: ReducerAction<number>) => {
+  let result = null;
   switch (action.type) {
     case 'setTagColWidth':
-      return { ...state, tagColWidth: action.value };
+      result = { ...state, tagColWidth: action.value };
+      break;
     case 'setArticleColWidth':
-      return { ...state, articleColWidth: action.value };
+      result = { ...state, articleColWidth: action.value };
+      break;
     case 'switchZenMode':
-      return { ...state, articleColWidth: 0, tagColWidth: 0 };
+      result = { ...state, articleColWidth: 0, tagColWidth: 0 };
+      break;
     case 'switchNoTagMode':
-      return { ...state, tagColWidth: 0 };
+      result = { ...state, tagColWidth: 0 };
+      break;
     case 'resetLayout':
-      return { ...defaultStore };
-    default:
-      return { ...state };
+      result = { ...defaultStore };
+      break;
+    default: void 0;
   }
+  localStorage.setItem('geometry-context', JSON.stringify(result));
+  return result;
 };
 
 export const GeometryProvider = ({children}) => {
@@ -44,3 +53,23 @@ export const GeometryProvider = ({children}) => {
 };
 
 export default GeometryContext;
+
+function getDefaultStore (): Store {
+  let result = null;
+  try {
+    result = JSON.parse(localStorage.getItem('geometry-context'));
+  } catch (error) {
+    console.error(error.msg);
+  }
+  if (result === null) {
+    result = {
+      tagColWidth: 200,
+      articleColWidth: 200,
+      toTop: 0,
+      toLeft: 0,
+      toRight: 0,
+      toBottom: 0,
+    };
+  }
+  return result;
+}

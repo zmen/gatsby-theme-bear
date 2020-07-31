@@ -47,16 +47,19 @@ const Layout = ({ children, left, mid }) => {
 
   const { state: { tagColWidth, articleColWidth }, dispatch } = useContext(GeometryContext);
 
-  const delayedTagWidth = useDelayedValue<number>(tagColWidth, 200, 200);
-  const delayedListWidth = useDelayedValue<number>(articleColWidth, 200, 200);
+  const [initialTagColWidth] = useState(tagColWidth);
+  const [initialArticleColWidth] = useState(articleColWidth);
+
+  const delayedTagWidth = useDelayedValue<number>(tagColWidth, initialTagColWidth, 200);
+  const delayedListWidth = useDelayedValue<number>(articleColWidth, initialArticleColWidth, 200);
 
   return (
     <AppContainer>
       <Header />
-      <ListContainer width={delayedTagWidth} ref={leftEle}>{left}</ListContainer>
-      <Resizer left={delayedTagWidth} setData={value => dispatch({type: 'setTagColWidth', value})} relateEle={leftEle}></Resizer>
-      <ListContainer width={delayedListWidth} ref={rightEle}>{mid}</ListContainer>
-      <Resizer left={delayedTagWidth + delayedListWidth} setData={value => dispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>
+      {left && <ListContainer width={delayedTagWidth} ref={leftEle}>{left}</ListContainer>}
+      {left && <Resizer left={delayedTagWidth} setData={value => dispatch({type: 'setTagColWidth', value})} relateEle={leftEle}></Resizer>}
+      {mid && <ListContainer width={delayedListWidth} ref={rightEle}>{mid}</ListContainer>}
+      {mid && <Resizer left={delayedTagWidth + delayedListWidth} setData={value => dispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>}
       <ArticleArea>{children}</ArticleArea>
     </AppContainer>
   );

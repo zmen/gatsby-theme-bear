@@ -15,8 +15,9 @@ Inspired by the [Bear App](https://bear.app/).
 
 - [ ] Features
   - [x] Search
-  - [ ] Comment
-  - [ ] Article Infomation
+  - [ ] Switch Themes
+  - [ ] Article Tags/Title
+  - [x] Article Infomation
   - [x] Tag Highlight
   - [x] Article Highlight
   - [ ] Window Resize
@@ -25,6 +26,7 @@ Inspired by the [Bear App](https://bear.app/).
   - [ ] Mobile Adaptive
 - [ ] Refactor
   - [x] All Typescript
+  - [ ] Unit Test
 - [ ] Pages
   - [ ] Setting
   - [ ] About
