@@ -5,9 +5,6 @@ modified: '2019-06-18T02:52:16.222Z'
 tags: [Book, FrontEnd/JavaScript, Image]
 ---
 
-# Dive into Promise
-
-
 The `Promise` class is something that exists in many modern JavaScript engines and can be easily [polyfilled][polyfill]. The main motivation for promises is to bring synchronous style error handling to Async / Callback style code.
 
 ![Promise](./images/promise.png)

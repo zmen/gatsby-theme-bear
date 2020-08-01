@@ -9,12 +9,14 @@ import SEO from '../components/seo';
 import Menu from '../components/menu';
 import ArticleList from '../components/article-list';
 
-import BearLogo from '../assets/bear.svg';
-
-const HomeLogo = styled.img`
-  position: absolute;
-  bottom: 0;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;
+
 const IndexPage = () => {
   const { posts, tags } = useContext(PostContext);
   return (
@@ -23,7 +25,9 @@ const IndexPage = () => {
       mid={<ArticleList articles={posts} />}
     >
       <SEO title="Home" />
-      <HomeLogo src={BearLogo} alt="" />
+      <Container>
+        <h1>Lotus Land - Fairy Tale</h1>
+      </Container>
     </Layout>
   );
 };

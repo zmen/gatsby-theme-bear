@@ -5,8 +5,6 @@ modified: '2019-06-18T02:52:16.222Z'
 tags: [FrontEnd/CSS, Introduction, MDN]
 ---
 
-# CSS Cascading Style Sheets
-
 **Cascading Style Sheets (CSS)** is a stylesheet language used to describe the presentation of a document written in HTML or XML (including XML dialects such as SVG, MathML or XHTML). CSS describes how elements should be rendered on screen, on paper, in speech, or on other media.
 
 CSS is one of the core languages of the open Web and is standardized across Web browsers according to the W3C specification. Previously development of various parts of CSS specification was done synchronously, which allowed versioning of the latest recommendation. You might have heard about CSS1, CSS2.1, CSS3. However, CSS4 has never become an official version.

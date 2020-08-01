@@ -42,8 +42,9 @@ const ArticleContent = styled.div`
 `;
 
 const HighlightBar = styled.div`
-  width: 16px;
+  width: 6px;
   background: #ee3918;
+  flex-shrink: 0;
 `;
 
 interface ArticleListItemProps {

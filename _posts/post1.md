@@ -5,8 +5,6 @@ modified: '2020-06-10T10:29:02.285Z'
 tags: [FrontEnd/JavaScript, Introduction, MDN]
 ---
 
-# JavaScript
-
 **JavaScript (JS)** is a lightweight, interpreted, or [just-in-time](https://en.wikipedia.org/wiki/Just-in-time_compilation) compiled programming language with [first-class](https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function) functions. While it is most well-known as the scripting language for Web pages, many [non-browser](https://en.wikipedia.org/wiki/JavaScript#Uses_outside_Web_pages) environments also use it, such as [Node.js](https://developer.mozilla.org/en-US/docs/Glossary/Node.js), [Apache CouchDB](Apache CouchDB) and [Adobe Acrobat](http://www.adobe.com/devnet/acrobat/javascript.html). JavaScript is a [prototype-based](https://developer.mozilla.org/en-US/docs/Glossary/Prototype-based_programming), multi-paradigm, single-threaded, dynamic language, supporting object-oriented, imperative, and declarative (e.g. functional programming) styles. Read more [about JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/About_JavaScript).
 
 This section is dedicated to the JavaScript language itself, and not the parts that are specific to Web pages or other host environments. For information about API specifics to Web pages, please see Web APIs and DOM.

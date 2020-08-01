@@ -79,55 +79,28 @@ const LayoutSwitcherItem = styled.div`
   }
 `;
 
-const Article = ({ markdownRemark }) => {
+const InlineTag = styled.span`
+  border-radius: 100px;
+  color: #fff;
+  background: #9a9a9a;
+  margin-right: 6px;
+  padding: 2px 12px;
+`;
 
+const Article = ({ markdownRemark }) => {
   const [infoVisible, setInfoVisible] = useState(false);
   const [layoutSettingVisible, setLayoutSettingVisible] = useState(false);
 
-  function renderPopoverContent (created: string, rawMarkdownBody: string) {
-    const createdDate = new Date(created);
-    const day = dateformat(createdDate, 'dd');
-    const date = dateformat(createdDate, 'mmmm yyyy hh:MM');
-
-    const { char, word, para, readingTime } = analyzeText(rawMarkdownBody);
-
-    return <PopoverContentContainer>
-      <PopoverContentLine>
-        <PopoverContentDay>{day}</PopoverContentDay>
-        <PopoverContentDate>
-          <div>{date}</div>
-          <PopoverContentTipText>CREATED DATE</PopoverContentTipText>
-        </PopoverContentDate>
-      </PopoverContentLine>
-      <PopoverContentLine>
-        <PopoverContentBlock>
-          <div>{word}</div><PopoverContentTipText>WORDS</PopoverContentTipText>
-        </PopoverContentBlock >
-        <PopoverContentBlock>
-          <div>{char}</div><PopoverContentTipText>CHARACTERS</PopoverContentTipText>
-        </PopoverContentBlock>
-        <PopoverContentBlock>
-          <div>{readingTime}</div><PopoverContentTipText>READING TIME</PopoverContentTipText>
-        </PopoverContentBlock>
-        <PopoverContentBlock>
-          <div>{para}</div><PopoverContentTipText>PARAGRAPHS</PopoverContentTipText>
-        </PopoverContentBlock>
-      </PopoverContentLine>
-    </PopoverContentContainer>;
-  }
-
-  function renderLayoutSwitcher () {
-    const { dispatch } = useContext(GeometryContext);
-
-    return <LayoutSwitcherContainer style={{display: 'flex'}}>
-      <LayoutSwitcherItem onClick={() => dispatch({type: 'resetLayout'})}>Layout-A</LayoutSwitcherItem>
-      <LayoutSwitcherItem onClick={() => dispatch({type: 'switchNoTagMode'})}>Layout-B</LayoutSwitcherItem>
-      <LayoutSwitcherItem onClick={() => dispatch({type: 'switchZenMode'})}>Layout-C</LayoutSwitcherItem>
-    </LayoutSwitcherContainer>
-  }
+  const { frontmatter: { title, tags } } = markdownRemark;
 
   return (<ArticleContainer>
-    <MarkdownBody className="markdown-body" dangerouslySetInnerHTML={{ __html: markdownRemark.html }} />
+    <MarkdownBody>
+      <div style={{ marginBottom: '32px' }}>
+        <h1>{title}</h1>
+        {tags.map((tag: string) => <InlineTag>#{tag}</InlineTag>)}
+      </div>
+      <div className="markdown-body" dangerouslySetInnerHTML={{__html: markdownRemark.html}}></div>
+    </MarkdownBody>
     <ArticleInfoContainer>
       <Popover
         arrowPointAtCenter
@@ -157,3 +130,45 @@ const Article = ({ markdownRemark }) => {
 };
 
 export default Article;
+
+function renderPopoverContent (created: string, rawMarkdownBody: string) {
+  const createdDate = new Date(created);
+  const day = dateformat(createdDate, 'dd');
+  const date = dateformat(createdDate, 'mmmm yyyy hh:MM');
+
+  const { char, word, para, readingTime } = analyzeText(rawMarkdownBody);
+
+  return <PopoverContentContainer>
+    <PopoverContentLine>
+      <PopoverContentDay>{day}</PopoverContentDay>
+      <PopoverContentDate>
+        <div>{date}</div>
+        <PopoverContentTipText>CREATED DATE</PopoverContentTipText>
+      </PopoverContentDate>
+    </PopoverContentLine>
+    <PopoverContentLine>
+      <PopoverContentBlock>
+        <div>{word}</div><PopoverContentTipText>WORDS</PopoverContentTipText>
+      </PopoverContentBlock >
+      <PopoverContentBlock>
+        <div>{char}</div><PopoverContentTipText>CHARACTERS</PopoverContentTipText>
+      </PopoverContentBlock>
+      <PopoverContentBlock>
+        <div>{readingTime}</div><PopoverContentTipText>READING TIME</PopoverContentTipText>
+      </PopoverContentBlock>
+      <PopoverContentBlock>
+        <div>{para}</div><PopoverContentTipText>PARAGRAPHS</PopoverContentTipText>
+      </PopoverContentBlock>
+    </PopoverContentLine>
+  </PopoverContentContainer>;
+}
+
+function renderLayoutSwitcher () {
+  const { dispatch } = useContext(GeometryContext);
+
+  return <LayoutSwitcherContainer style={{display: 'flex'}}>
+    <LayoutSwitcherItem onClick={() => dispatch({type: 'resetLayout'})}>Layout-A</LayoutSwitcherItem>
+    <LayoutSwitcherItem onClick={() => dispatch({type: 'switchNoTagMode'})}>Layout-B</LayoutSwitcherItem>
+    <LayoutSwitcherItem onClick={() => dispatch({type: 'switchZenMode'})}>Layout-C</LayoutSwitcherItem>
+  </LayoutSwitcherContainer>
+}

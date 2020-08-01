@@ -16,7 +16,7 @@ Inspired by the [Bear App](https://bear.app/).
 - [ ] Features
   - [x] Search
   - [ ] Switch Themes
-  - [ ] Article Tags/Title
+  - [X] Article Tags/Title
   - [x] Article Infomation
   - [x] Tag Highlight
   - [x] Article Highlight
@@ -31,5 +31,5 @@ Inspired by the [Bear App](https://bear.app/).
   - [ ] Setting
   - [ ] About
   - [ ] Home
-  - [ ] 404
+  - [X] 404
 
