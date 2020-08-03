@@ -97,7 +97,7 @@ const Article = ({ markdownRemark }) => {
     <MarkdownBody>
       <div style={{ marginBottom: '32px' }}>
         <h1>{title}</h1>
-        {tags.map((tag: string) => <InlineTag>#{tag}</InlineTag>)}
+        {tags.map((tag: string) => <InlineTag key={tag}>#{tag}</InlineTag>)}
       </div>
       <div className="markdown-body" dangerouslySetInnerHTML={{__html: markdownRemark.html}}></div>
     </MarkdownBody>
