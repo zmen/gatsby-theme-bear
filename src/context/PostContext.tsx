@@ -36,6 +36,7 @@ export const Provider = ({ children }) => {
 
   const posts = data.allMarkdownRemark.edges.map(edge => ({
     title: edge.node.frontmatter.title,
+    tags: edge.node.frontmatter.tags,
     date: calcTime(edge.node.frontmatter.created),
     content: edge.node.excerpt,
     slug: edge.node.fields.slug

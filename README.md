@@ -24,11 +24,11 @@ Inspired by the [Bear App](https://bear.app/).
   - [ ] Window Maximize/Minimize
   - [x] Assets(Image) Management
   - [ ] Mobile Adaptive
-- [ ] Refactor
+- [X] Refactor
   - [x] All Typescript
   - [ ] Unit Test
 - [ ] Pages
-  - [ ] Setting
+  - [X] Setting
   - [ ] About
   - [ ] Home
   - [X] 404

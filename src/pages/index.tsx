@@ -26,7 +26,7 @@ const IndexPage = () => {
     >
       <SEO title="Home" />
       <Container>
-        <h1>Lotus Land - Fairy Tale</h1>
+        <h1>A Simple Gatsby Blog Starter</h1>
       </Container>
     </Layout>
   );

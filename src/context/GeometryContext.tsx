@@ -9,9 +9,17 @@ interface Store {
   toBottom: number;
 }
 
-const defaultStore = getDefaultStore();
+const defaultStore = {
+  tagColWidth: 200,
+  articleColWidth: 200,
+  toTop: 0,
+  toLeft: 0,
+  toRight: 0,
+  toBottom: 0,
+};
+const initialStore = getInitialStore();
 
-const GeometryContext = React.createContext({ state: defaultStore, dispatch: null });
+const GeometryContext = React.createContext({ state: initialStore, dispatch: null });
 
 interface ReducerAction<T> {
   type: string;
@@ -31,7 +39,7 @@ const reducer = (state: Store, action: ReducerAction<number>) => {
       result = { ...state, articleColWidth: 0, tagColWidth: 0 };
       break;
     case 'switchNoTagMode':
-      result = { ...state, tagColWidth: 0 };
+      result = { ...state, articleColWidth: defaultStore.articleColWidth, tagColWidth: 0 };
       break;
     case 'resetLayout':
       result = { ...defaultStore };
@@ -43,7 +51,7 @@ const reducer = (state: Store, action: ReducerAction<number>) => {
 };
 
 export const GeometryProvider = ({children}) => {
-  const [state, dispatch] = useReducer(reducer, defaultStore);
+  const [state, dispatch] = useReducer(reducer, initialStore);
 
   return (
     <GeometryContext.Provider value={{ state, dispatch }}>
@@ -54,7 +62,7 @@ export const GeometryProvider = ({children}) => {
 
 export default GeometryContext;
 
-function getDefaultStore (): Store {
+function getInitialStore (): Store {
   let result = null;
   try {
     result = JSON.parse(localStorage.getItem('geometry-context'));
@@ -62,14 +70,7 @@ function getDefaultStore (): Store {
     console.error(error.msg);
   }
   if (result === null) {
-    result = {
-      tagColWidth: 200,
-      articleColWidth: 200,
-      toTop: 0,
-      toLeft: 0,
-      toRight: 0,
-      toBottom: 0,
-    };
+    return defaultStore;
   }
   return result;
 }

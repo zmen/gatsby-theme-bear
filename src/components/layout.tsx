@@ -1,10 +1,12 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { delay, map } from 'rxjs/operators';
 import { useObservable } from 'rxjs-hooks';
+import { Drawer } from 'antd';
 
 import GeometryContext from '../context/GeometryContext';
+import VisibilityContext from '../context/VisibilityContext';
 import Header from './header';
 import Resizer from './resizer';
 import './layout.css';
@@ -41,26 +43,35 @@ const ArticleArea = styled.main`
 `;
 
 const Layout = ({ children, left, mid }) => {
-
   const leftEle = useRef(null);
   const rightEle = useRef(null);
 
-  const { state: { tagColWidth, articleColWidth }, dispatch } = useContext(GeometryContext);
+  const { state: { tagColWidth, articleColWidth }, dispatch: gDispatch } = useContext(GeometryContext);
+  const { state: { isSettingDialogVisible }, dispatch: vDispatch } = useContext(VisibilityContext);
 
   const [initialTagColWidth] = useState(tagColWidth);
   const [initialArticleColWidth] = useState(articleColWidth);
 
-  const delayedTagWidth = useDelayedValue<number>(tagColWidth, initialTagColWidth, 200);
-  const delayedListWidth = useDelayedValue<number>(articleColWidth, initialArticleColWidth, 200);
+  const delayedTagWidth = useDelayedValue<number>(tagColWidth, initialTagColWidth, 100);
+  const delayedListWidth = useDelayedValue<number>(articleColWidth, initialArticleColWidth, 100);
 
   return (
     <AppContainer>
       <Header />
       {left && <ListContainer width={delayedTagWidth} ref={leftEle}>{left}</ListContainer>}
-      {left && <Resizer left={delayedTagWidth} setData={value => dispatch({type: 'setTagColWidth', value})} relateEle={leftEle}></Resizer>}
+      {left && <Resizer left={delayedTagWidth} setData={value => gDispatch({type: 'setTagColWidth', value})} relateEle={leftEle}></Resizer>}
       {mid && <ListContainer width={delayedListWidth} ref={rightEle}>{mid}</ListContainer>}
-      {mid && <Resizer left={delayedTagWidth + delayedListWidth} setData={value => dispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>}
+      {mid && <Resizer left={delayedTagWidth + delayedListWidth} setData={value => gDispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>}
       <ArticleArea>{children}</ArticleArea>
+
+      <Drawer
+        title="SETTING"
+        placement="right"
+        onClose={() => vDispatch({type: 'toggleSettingDialog'})}
+        visible={isSettingDialogVisible}
+      >
+        <p>Themes? Font?🤔</p>
+      </Drawer>
     </AppContainer>
   );
 

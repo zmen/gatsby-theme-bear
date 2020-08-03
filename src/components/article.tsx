@@ -7,7 +7,7 @@ import { analyzeText } from '../utils/TextStatistics';
 import GeometryContext from '../context/GeometryContext';
 
 const ArticleContainer = styled.div`
-  padding-left: 32px;
+  padding-left: 64px;
   height: 100%;
   display: flex;
 `;

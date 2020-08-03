@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { navigate } from '@reach/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation } from "@reach/router";
+import VisibilityContext from '../context/VisibilityContext';
 
 import { Tag, tagIconMap } from '../utils/Tag';
 
@@ -19,13 +20,24 @@ const Tags = ({ tags } : { tags: Tag[] }) => {
   const tagMatch = locationInfo.search.match(/[\&\?]tag=(\w+)/);
   const matchedTag = tagMatch ? tagMatch[1] : null;
 
+  const { dispatch } = useContext(VisibilityContext);
+
+  function onClickTag (event: React.MouseEvent<HTMLLIElement, MouseEvent>, tag: Tag) {
+    event.stopPropagation();
+    if (tag.to === '/setting') {
+      dispatch({type: 'toggleSettingDialog'});
+      return;
+    }
+    navigate(tag.to ? tag.to : `?tag=${tag.tagname}`);
+  }
+
   return (
     <ul>
       {tags.map(d => {
         return (<li
           key={d.tagname}
           style={{ color: matchedTag === d.tagname ? '#ee3918' : '#eee' }}
-          onClick={(e) => { e.stopPropagation(); navigate(d.to ? d.to : `?tag=${d.tagname}`); }}
+          onClick={(e) => { onClickTag(e, d) }}
         >
           <div>
             <FontAwesomeIcon icon={tagIconMap(d.tagname)} />
