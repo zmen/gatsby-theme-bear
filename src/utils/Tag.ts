@@ -45,5 +45,6 @@ export function buildTags (tags: Array<Array<string>>): Array<Tag> {
 export function tagIconMap (tagname) {
   if (['HOME', '首页'].includes(tagname)) return 'home';
   if (['SETTING', '设置'].includes(tagname)) return 'cog';
+  if (['ABOUT', '关于'].includes(tagname)) return 'user';
   return 'tag';
 }

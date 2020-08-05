@@ -47,7 +47,7 @@ const Layout = ({ children, left, mid }) => {
   const rightEle = useRef(null);
 
   const { state: { tagColWidth, articleColWidth }, dispatch: gDispatch } = useContext(GeometryContext);
-  const { state: { isSettingDialogVisible }, dispatch: vDispatch } = useContext(VisibilityContext);
+  const { state: { isSettingDialogVisible, isAboutDialogVisible }, dispatch: vDispatch } = useContext(VisibilityContext);
 
   const [initialTagColWidth] = useState(tagColWidth);
   const [initialArticleColWidth] = useState(articleColWidth);
@@ -71,6 +71,15 @@ const Layout = ({ children, left, mid }) => {
         visible={isSettingDialogVisible}
       >
         <p>Themes? Font?🤔</p>
+      </Drawer>
+
+      <Drawer
+        title="ABOUT"
+        placement="right"
+        onClose={() => vDispatch({type: 'toggleAboutDialog'})}
+        visible={isAboutDialogVisible}
+      >
+        <p>Who am I?</p>
       </Drawer>
     </AppContainer>
   );

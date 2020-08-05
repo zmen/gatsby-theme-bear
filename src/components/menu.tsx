@@ -7,13 +7,17 @@ import VisibilityContext from '../context/VisibilityContext';
 
 import { Tag, tagIconMap } from '../utils/Tag';
 
-const menus: Tag[] = [ new Tag('HOME', '/'), new Tag('SETTING', '/setting') ];
+const menus: Tag[] = [
+  new Tag('HOME', '/'),
+  new Tag('SETTING', '/setting'),
+  new Tag('ABOUT', '/about')
+];
 
 const TagName = styled.span`
   padding-left: 8px;
 `;
 
-const Tags = ({ tags } : { tags: Tag[] }) => {
+const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
   if (tags.length === 0) return null;
 
   const locationInfo = useLocation();
@@ -28,6 +32,10 @@ const Tags = ({ tags } : { tags: Tag[] }) => {
       dispatch({type: 'toggleSettingDialog'});
       return;
     }
+    if (tag.to === '/about') {
+      dispatch({type: 'toggleAboutDialog'});
+      return;
+    }
     navigate(tag.to ? tag.to : `?tag=${tag.tagname}`);
   }
 
@@ -36,14 +44,19 @@ const Tags = ({ tags } : { tags: Tag[] }) => {
       {tags.map(d => {
         return (<li
           key={d.tagname}
-          style={{ color: matchedTag === d.tagname ? '#ee3918' : '#eee' }}
           onClick={(e) => { onClickTag(e, d) }}
         >
-          <div>
+          <div style={{
+            color: matchedTag === d.tagname ? '#fff' : '#eee',
+            backgroundColor: matchedTag === d.tagname ? '#ee3918' : 'transparent',
+            paddingLeft: level * 1.25 + 'rem',
+            paddingTop: '2px',
+            paddingBottom: '2px',
+          }}>
             <FontAwesomeIcon icon={tagIconMap(d.tagname)} />
             <TagName>{d.tagname}</TagName>
           </div>
-          {d.children && <Tags tags={d.children} />}
+          {d.children && <Tags tags={d.children} level={level + 1} />}
         </li>)
       })}
     </ul>

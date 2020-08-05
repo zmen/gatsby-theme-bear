@@ -2,10 +2,12 @@ import React, { useReducer } from 'react';
 
 interface Store {
   isSettingDialogVisible: boolean;
+  isAboutDialogVisible: boolean;
 }
 
-const defaultStore = {
+const defaultStore: Store = {
   isSettingDialogVisible: false,
+  isAboutDialogVisible: false,
 };
 
 const VisibilityContext = React.createContext({ state: defaultStore, dispatch: null });
@@ -21,6 +23,8 @@ const reducer = (state: Store, action: ReducerAction<boolean>) => {
   switch (action.type) {
     case 'toggleSettingDialog':
       return { ...state, isSettingDialogVisible: !state.isSettingDialogVisible };
+    case 'toggleAboutDialog':
+      return { ...state, isAboutDialogVisible: !state.isAboutDialogVisible };
     default:
       return state;
   }
