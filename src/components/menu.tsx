@@ -13,9 +13,7 @@ const menus: Tag[] = [
   new Tag('ABOUT', '/about')
 ];
 
-const TagName = styled.span`
-  padding-left: 8px;
-`;
+const TagName = styled.span`padding-left: 8px;`;
 
 const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
   if (tags.length === 0) return null;
@@ -46,9 +44,10 @@ const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
           key={d.tagname}
           onClick={(e) => { onClickTag(e, d) }}
         >
+          {/* todo refactor to styled component */}
           <div style={{
-            color: matchedTag === d.tagname ? '#fff' : '#eee',
-            backgroundColor: matchedTag === d.tagname ? '#ee3918' : 'transparent',
+            color: 'var(--menu-font-color)',
+            backgroundColor: matchedTag === d.tagname ? 'var(--primary-color)' : 'transparent',
             paddingLeft: level * 1.25 + 'rem',
             paddingTop: '2px',
             paddingBottom: '2px',
@@ -66,18 +65,18 @@ const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
 const MenuContainer = styled.div`
   padding-top: 32px;
   font-size: 14px;
-  background: #1a1c1d;
   width: 100%;
   height: 100%;
-  color: #eee;
+  background: var(--menu-bg-color);
+  color: var(--menu-font-color);
 `;
 
 const Menu = ({ tags } : { tags: Tag[] }) => {
 
   return (
     <MenuContainer>
-      <Tags tags={menus} />
-      <Tags tags={tags} />
+      <Tags level={1} tags={menus} />
+      <Tags level={1} tags={tags} />
     </MenuContainer>
   );
 };

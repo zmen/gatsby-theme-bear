@@ -20,16 +20,14 @@ Inspired by the [Bear App](https://bear.app/).
   - [x] Article Infomation
   - [x] Tag Highlight
   - [x] Article Highlight
-  - [ ] Window Resize
-  - [ ] Window Maximize/Minimize
   - [x] Assets(Image) Management
   - [ ] Mobile Adaptive
-- [X] Refactor
+- [ ] Refactor
   - [x] All Typescript
   - [ ] Unit Test
-- [ ] Pages
+- [X] Pages
   - [X] Setting
-  - [ ] About
-  - [ ] Home
+  - [X] About
+  - [X] Home
   - [X] 404
 

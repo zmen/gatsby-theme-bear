@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import GeometryContext from '../context/GeometryContext';
 
 const HeaderContainer = styled.header`
   height: 22px;
@@ -9,6 +10,7 @@ const HeaderContainer = styled.header`
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 42;
 `;
 
 const Dot = styled.div`
@@ -19,12 +21,16 @@ const Dot = styled.div`
   margin-right: 6px;
 `;
 
-const Header = () => (
-  <HeaderContainer>
-    <Dot color="#fc4848" />
-    <Dot color="#fdb625" />
-    <Dot color="#2ac933" />
-  </HeaderContainer>
-);
+const Header = () => {
+  const { dispatch } = useContext(GeometryContext);
+
+  return (
+    <HeaderContainer>
+      <Dot color="#fc4848" onClick={() => dispatch({type: 'resetLayout'}) } />
+      <Dot color="#fdb625" onClick={() => dispatch({type: 'switchNoTagMode'})}/>
+      <Dot color="#2ac933" onClick={() => dispatch({type: 'switchZenMode'})}/>
+    </HeaderContainer>
+  );
+};
 
 export default Header;
