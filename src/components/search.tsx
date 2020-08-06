@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const SearchContainer = styled.div`
   padding: 12px 20px;
@@ -22,17 +21,9 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchIcon = styled(FontAwesomeIcon).attrs({ icon: 'search' })`
-  position: absolute;
-  right: 30px;
-  top: 50%;
-  transform: translateY(-6px);
-`;
-
 const Search = ({ text, setText }) => {
 
   return <SearchContainer>
-    <SearchIcon />
     <SearchInput
       placeholder="search article"
       value={text}

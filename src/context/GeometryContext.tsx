@@ -11,7 +11,7 @@ interface Store {
 
 const defaultStore = {
   tagColWidth: 200,
-  articleColWidth: 200,
+  articleColWidth: 300,
   toTop: 0,
   toLeft: 0,
   toRight: 0,

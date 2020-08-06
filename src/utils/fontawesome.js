@@ -6,6 +6,7 @@ import {
   faSearch,
   faInfoCircle,
   faColumns,
+  faBars,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,5 +17,6 @@ library.add(
   faSearch,
   faInfoCircle,
   faColumns,
+  faBars,
   faUser,
 );

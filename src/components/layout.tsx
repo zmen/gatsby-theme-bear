@@ -1,17 +1,20 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { delay, map } from 'rxjs/operators';
 import { useObservable } from 'rxjs-hooks';
-import { Drawer } from 'antd';
+import { Drawer, List } from 'antd';
 import CSSVariable from './css-variable';
 
 import GeometryContext from '../context/GeometryContext';
 import VisibilityContext from '../context/VisibilityContext';
+import PostContext from '../context/PostContext';
+
 import Header from './header';
 import Resizer from './resizer';
 import './layout.css';
 import '../utils/fontawesome';
+import ArticleListItem from './article-list-item';
 
 const AppContainer = styled.div`
   box-shadow: var(--container-shadow);
@@ -47,14 +50,33 @@ const Layout = ({ children, left, mid }) => {
   const leftEle = useRef(null);
   const rightEle = useRef(null);
 
+  const { posts } = useContext(PostContext);
   const { state: { tagColWidth, articleColWidth }, dispatch: gDispatch } = useContext(GeometryContext);
-  const { state: { isSettingDialogVisible, isAboutDialogVisible }, dispatch: vDispatch } = useContext(VisibilityContext);
+  const {
+    state: { isSettingDialogVisible, isAboutDialogVisible, isArticleListDialogVisible },
+    dispatch: vDispatch,
+  } = useContext(VisibilityContext);
 
   const [initialTagColWidth] = useState(tagColWidth);
   const [initialArticleColWidth] = useState(articleColWidth);
 
   const delayedTagWidth = useDelayedValue<number>(tagColWidth, initialTagColWidth, 100);
   const delayedListWidth = useDelayedValue<number>(articleColWidth, initialArticleColWidth, 100);
+
+  useEffect(() => {
+    window.addEventListener('resize', resizeHandler, false);
+
+    function resizeHandler () {
+      if (window.innerWidth < 1200 && (tagColWidth !== 0 || articleColWidth !== 0)) {
+        gDispatch({type: 'setTagColWidth', value: 0});
+        gDispatch({type: 'setArticleColWidth', value: 0});
+      }
+    }
+
+    return () => {
+      window.removeEventListener('resize', resizeHandler);
+    }
+  }, []);
 
   return (
     <CSSVariable>
@@ -82,6 +104,28 @@ const Layout = ({ children, left, mid }) => {
           visible={isAboutDialogVisible}
         >
           <p>Who am I?</p>
+        </Drawer>
+
+        <Drawer
+          title="Articles"
+          placement="left"
+          getContainer={false}
+          onClose={() => vDispatch({type: 'toggleArticleListDialog'})}
+          visible={isArticleListDialogVisible}
+        >
+          <List
+            dataSource={posts}
+            renderItem={item => (
+              <ArticleListItem
+                matchText={null}
+                key={item.title}
+                title={item.title}
+                content={item.content}
+                slug={item.slug}
+                date={item.date}
+              />
+            )}
+            ></List>
         </Drawer>
       </AppContainer>
     </CSSVariable>

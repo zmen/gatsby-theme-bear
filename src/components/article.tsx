@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Popover } from 'antd';
 import dateformat from '../utils/Date';
 import { analyzeText } from '../utils/TextStatistics';
 
+import GeometryContext from '../context/GeometryContext';
+import VisibilityContext from '../context/VisibilityContext';
+
 const ArticleContainer = styled.div`
-  padding-left: 64px;
+  padding-left: var(--article-padding);
   height: 100%;
   display: flex;
 `;
@@ -80,6 +83,9 @@ const Article = ({ markdownRemark }) => {
 
   const { frontmatter: { title, tags } } = markdownRemark;
 
+  const { dispatch } = useContext(VisibilityContext);
+  const { state: { articleColWidth } } = useContext(GeometryContext);
+
   return (<ArticleContainer>
     <MarkdownBody>
       <MarkdownFrontMatter>
@@ -100,6 +106,7 @@ const Article = ({ markdownRemark }) => {
       >
         <FontAwesomeIcon icon="info-circle" />
       </Popover>
+      {articleColWidth === 0 && <FontAwesomeIcon onClick={() => dispatch({type: 'toggleArticleListDialog'}) } icon="bars" />}
     </ArticleInfoContainer>
   </ArticleContainer>)
 };

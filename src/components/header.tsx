@@ -19,6 +19,10 @@ const Dot = styled.div`
   border-radius: 100%;
   background: ${props => props.color};
   margin-right: 6px;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Header = () => {

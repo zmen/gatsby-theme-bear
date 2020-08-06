@@ -21,7 +21,7 @@ Inspired by the [Bear App](https://bear.app/).
   - [x] Tag Highlight
   - [x] Article Highlight
   - [x] Assets(Image) Management
-  - [ ] Mobile Adaptive
+  - [x] Mobile Adaptive
 - [ ] Refactor
   - [x] All Typescript
   - [ ] Unit Test
