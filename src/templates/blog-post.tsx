@@ -9,6 +9,7 @@ import SEO from '../components/seo';
 import Menu from '../components/menu';
 import Article from '../components/article';
 import ArticleList from '../components/article-list';
+import { isTagInclude } from '../utils/Tag';
 
 import queryString from 'query-string';
 
@@ -44,9 +45,3 @@ export const query = graphql`
     }
   }
 `;
-
-function isTagInclude (blogTag: string[], tag: string): boolean {
-  if (!blogTag) return false;
-  if (!tag) return true;
-  return blogTag.some(tagList => tagList.split('/').includes(tag));
-}

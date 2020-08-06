@@ -14,6 +14,7 @@ const CSSVariable = styled(ContainerLayout)`
   --menu-font-color: #eee;
   --primary-color: #ce3334;
   --primary-font-color: #262626;
+  --search-highlight-color: #ee3918;
   --tag-bg-color: #8a8a8a;
   --tag-font-color: #fff;
   --border-color: #eee;

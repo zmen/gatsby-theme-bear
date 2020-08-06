@@ -8,6 +8,8 @@ import SEO from '../components/seo';
 
 import Menu from '../components/menu';
 import ArticleList from '../components/article-list';
+import queryString from 'query-string';
+import { isTagInclude } from '../utils/tag';
 
 const Container = styled.div`
   display: flex;
@@ -19,10 +21,13 @@ const Container = styled.div`
 
 const IndexPage = () => {
   const { posts, tags } = useContext(PostContext);
+  const tag = queryString.parse(location.search).tag;
+  const files = posts.filter(file => isTagInclude(file.tags, tag as string));
+
   return (
     <Layout
       left={<Menu tags={tags} />}
-      mid={<ArticleList articles={posts} />}
+      mid={<ArticleList articles={files} />}
     >
       <SEO title="Home" />
       <Container>
@@ -33,3 +38,4 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
+

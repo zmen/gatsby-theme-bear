@@ -76,7 +76,7 @@ const HighlightTextWrapper = styled.p`
   padding: 0;
   margin: 0;
   & strong {
-    color: #ee3918;
+    color: var(--search-highlight-color);
   }
 `;
 
