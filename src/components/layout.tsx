@@ -15,6 +15,7 @@ import Resizer from './resizer';
 import './layout.css';
 import '../utils/fontawesome';
 import ArticleListItem from './article-list-item';
+import GithubUserInfo from './github-user-info';
 
 const AppContainer = styled.div`
   box-shadow: var(--container-shadow);
@@ -94,7 +95,7 @@ const Layout = ({ children, left, mid }) => {
           onClose={() => vDispatch({type: 'toggleSettingDialog'})}
           visible={isSettingDialogVisible}
         >
-          <p>Themes? Font?🤔</p>
+          <div style={{ padding: '32px' }}>🤔</div>
         </Drawer>
 
         <Drawer
@@ -103,7 +104,7 @@ const Layout = ({ children, left, mid }) => {
           onClose={() => vDispatch({type: 'toggleAboutDialog'})}
           visible={isAboutDialogVisible}
         >
-          <p>Who am I?</p>
+          <GithubUserInfo />
         </Drawer>
 
         <Drawer
@@ -135,7 +136,7 @@ const Layout = ({ children, left, mid }) => {
     const width = useObservable(
       (_, inputs$) => inputs$.pipe(delay(delayTime), map(([v]) => v)),
       initialValue,
-      [x]
+      [x],
     );
     return width;
   }

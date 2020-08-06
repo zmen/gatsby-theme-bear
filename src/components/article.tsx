@@ -106,7 +106,10 @@ const Article = ({ markdownRemark }) => {
       >
         <FontAwesomeIcon icon="info-circle" />
       </Popover>
-      {articleColWidth === 0 && <FontAwesomeIcon onClick={() => dispatch({type: 'toggleArticleListDialog'}) } icon="bars" />}
+      {articleColWidth === 0 && <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <FontAwesomeIcon onClick={() => dispatch({type: 'toggleAboutDialog'})} icon="user" style={{ marginBottom: '16px' }} />
+        <FontAwesomeIcon onClick={() => dispatch({type: 'toggleArticleListDialog'}) } icon="bars" />
+      </div>}
     </ArticleInfoContainer>
   </ArticleContainer>)
 };

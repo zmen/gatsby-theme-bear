@@ -7,8 +7,11 @@ import {
   faInfoCircle,
   faColumns,
   faBars,
+  faEnvelope,
+  faLocationArrow,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import faGithub from './icon-github';
 
 library.add(
   faTag,
@@ -18,5 +21,8 @@ library.add(
   faInfoCircle,
   faColumns,
   faBars,
+  faEnvelope,
+  faLocationArrow,
   faUser,
+  faGithub,
 );
