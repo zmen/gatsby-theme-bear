@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Popover } from 'antd';
+
 import dateformat from '../utils/Date';
 import { analyzeText } from '../utils/TextStatistics';
 
@@ -76,6 +77,7 @@ const InlineTag = styled.span`
   margin-bottom: 2px;
   padding: 2px 12px;
   white-space: nowrap;
+  font-size: 14px;
 `;
 
 const Article = ({ markdownRemark }) => {

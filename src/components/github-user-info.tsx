@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Octokit } from "@octokit/rest";
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Octokit } from "@octokit/rest";
+import { Spin } from 'antd';
 
-const GITHUB_ACCESS_TOKEN = ``;
-
-const octokit = new Octokit({
-  auth: GITHUB_ACCESS_TOKEN,
-});
+let octokit: Octokit = null;
 
 const UserInfoWrapper = styled.div`
   padding: 32px;
+`;
+
+const UserInfoWrapperAlignCenter = styled(UserInfoWrapper)`
+  text-align: center;
 `;
 
 const Avatar = styled.img`
@@ -24,7 +25,7 @@ const UserName = styled.h1`
   margin-bottom: 12px;
 `;
 
-const GithubUserInfo = () => {
+const GithubUserInfo = ({ auth }) => {
   const [avatar, setAvatar] = useState(null);
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
@@ -32,20 +33,21 @@ const GithubUserInfo = () => {
   const [myLocation, setLocation] = useState(null);
 
   useEffect(() => {
-    if (!GITHUB_ACCESS_TOKEN) return;
+    if (!auth) return;
+    if (!octokit) octokit = new Octokit({ auth });
 
-    octokit.users.getByUsername({
-      username: 'zmen',
-    }).then(resp => {
-      setAvatar(resp.data.avatar_url);
-      setName(resp.data.name);
-      setEmail(resp.data.email);
-      setUrl(resp.data.html_url);
-      setLocation(resp.data.location);
-    });
+    (async function getUserInfo () {
+      const { data } = await octokit.users.getAuthenticated();
+      setAvatar(data.avatar_url);
+      setName(data.name);
+      setEmail(data.email);
+      setUrl(data.html_url);
+      setLocation(data.location);
+    })();
   }, []);
 
-  if (!GITHUB_ACCESS_TOKEN) return (<UserInfoWrapper>ACCESS_TOKEN of Github is empty</UserInfoWrapper>);
+  if (!auth) return (<UserInfoWrapperAlignCenter>Auth token is empty</UserInfoWrapperAlignCenter>);
+  if (!name) return (<UserInfoWrapperAlignCenter><Spin /></UserInfoWrapperAlignCenter>);
 
   return (<UserInfoWrapper>
     <Avatar src={avatar} />

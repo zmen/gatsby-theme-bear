@@ -104,7 +104,7 @@ const Layout = ({ children, left, mid }) => {
           onClose={() => vDispatch({type: 'toggleAboutDialog'})}
           visible={isAboutDialogVisible}
         >
-          <GithubUserInfo />
+          <GithubUserInfo auth={null} />
         </Drawer>
 
         <Drawer

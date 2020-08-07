@@ -9,7 +9,7 @@ import SEO from '../components/seo';
 import Menu from '../components/menu';
 import ArticleList from '../components/article-list';
 import queryString from 'query-string';
-import { isTagInclude } from '../utils/tag';
+import { isTagInclude } from '../utils/Tag';
 
 const Container = styled.div`
   display: flex;

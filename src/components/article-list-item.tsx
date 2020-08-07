@@ -55,7 +55,6 @@ interface ArticleListItemProps {
 }
 
 const ArticleListItem = ({ title, date, content, slug, matchText } : ArticleListItemProps) => {
-
   const locationInfo = useLocation();
 
   return (<ArticleListItemContainer active={locationInfo.pathname === slug}>

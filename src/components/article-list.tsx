@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
-import GeometryContext from '../context/GeometryContext';
 import ArticleListItem from './article-list-item';
+import GeometryContext from '../context/GeometryContext';
 import Search from './search';
 
 interface Props {
