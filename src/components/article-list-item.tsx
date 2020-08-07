@@ -59,7 +59,7 @@ const ArticleListItem = ({ title, date, content, slug, matchText } : ArticleList
   return (<ArticleListItemContainer active={locationInfo.pathname === slug}>
     {locationInfo.pathname === slug && <HighlightBar />}
     <DateBlock>{ date }</DateBlock> 
-    <Link to={slug + location.search}>
+    <Link to={slug + locationInfo.search}>
       <MainBlock>
         <ArticleTitle className="two-lines">{HighlightText({ text: title, pattern: matchText })}</ArticleTitle>
         <ArticleContent className="two-lines">{HighlightText({ text: content, pattern: matchText })}</ArticleContent>

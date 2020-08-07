@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 interface Store {
   themeList: Array<string>;
@@ -50,12 +50,10 @@ export const themes = {
   },
 };
 
-const currentTheme = localStorage.getItem('current-theme') || 'Red Graphite';
-
 const defaultStore: Store = {
   themeList: Object.keys(themes),
-  theme: themes[currentTheme],
-  currentTheme,
+  theme: themes['Red Graphite'],
+  currentTheme: 'Red Graphite',
 };
 
 const ThemeContext = React.createContext({ state: defaultStore, dispatch: null });
@@ -82,6 +80,13 @@ const reducer = (state: Store, action: ReducerAction<string>) => {
 
 export const ThemeProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, defaultStore);
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem('current-theme');
+    if (currentTheme) {
+      dispatch({type: 'setTheme', value: currentTheme});
+    }
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ state, dispatch }}>

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { graphql } from 'gatsby';
+import { useLocation } from "@reach/router";
 
 import PostContext from '../context/PostContext';
 
@@ -16,7 +17,8 @@ import queryString from 'query-string';
 const BlogPost = ({ data }) => {
   const { markdownRemark } = data
   const { posts, tags } = useContext(PostContext);
-  const tag = queryString.parse(location.search).tag;
+  const locationInfo = useLocation();
+  const tag = queryString.parse(locationInfo.search).tag;
   const files = posts.filter(file => isTagInclude(file.tags, tag as string));
 
   return (

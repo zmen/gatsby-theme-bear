@@ -10,6 +10,7 @@ import Menu from '../components/menu';
 import ArticleList from '../components/article-list';
 import queryString from 'query-string';
 import { isTagInclude } from '../utils/Tag';
+import { useLocation } from "@reach/router";
 
 const Container = styled.div`
   display: flex;
@@ -20,8 +21,9 @@ const Container = styled.div`
 `;
 
 const IndexPage = () => {
+  const locationInfo = useLocation();
   const { posts, tags } = useContext(PostContext);
-  const tag = queryString.parse(location.search).tag;
+  const tag = queryString.parse(locationInfo.search).tag;
   const files = posts.filter(file => isTagInclude(file.tags, tag as string));
 
   return (
