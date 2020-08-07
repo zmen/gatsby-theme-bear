@@ -8,6 +8,7 @@ import { analyzeText } from '../utils/TextStatistics';
 
 import GeometryContext from '../context/GeometryContext';
 import VisibilityContext from '../context/VisibilityContext';
+import ThemeContext, { darkThemes } from '../context/ThemeContext';
 
 const ArticleContainer = styled.div`
   padding-left: var(--article-padding);
@@ -23,6 +24,7 @@ const ArticleInfoContainer = styled.div`
   width: 64px;
   padding: 32px 0;
   flex-shrink: 0;
+  color: var(--primary-font-color);
 `;
 
 const MarkdownBody = styled.div`
@@ -44,6 +46,10 @@ const PopoverContentLine = styled.div`
   padding: 6px 12px;
   display: flex;
   flex-wrap: wrap;
+
+  &:last-child {
+    border: none;
+  }
 `;
 
 const PopoverContentTipText = styled.div`
@@ -87,6 +93,7 @@ const Article = ({ markdownRemark }) => {
 
   const { dispatch } = useContext(VisibilityContext);
   const { state: { articleColWidth } } = useContext(GeometryContext);
+  const { state: { currentTheme } } = useContext(ThemeContext);
 
   return (<ArticleContainer>
     <MarkdownBody>
@@ -94,7 +101,7 @@ const Article = ({ markdownRemark }) => {
         <h1>{title}</h1>
         {tags.map((tag: string) => <InlineTag key={tag}>#{tag}</InlineTag>)}
       </MarkdownFrontMatter>
-      <div className="markdown-body" dangerouslySetInnerHTML={{__html: markdownRemark.html}}></div>
+      <div className={darkThemes.includes(currentTheme) ? 'markdown-body dark' : 'markdown-body'} dangerouslySetInnerHTML={{__html: markdownRemark.html}}></div>
     </MarkdownBody>
     <ArticleInfoContainer>
       <Popover

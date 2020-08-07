@@ -2,6 +2,18 @@
   border-radius: 10px!important;
 }
 
+.ant-drawer-header {
+  background: var(--container-bg-color);
+  border-color: var(--primary-border-color);
+}
+
+.ant-drawer-header,
+.ant-drawer-title,
+.ant-drawer-close {
+  color: var(--primary-font-color);
+}
+
 .ant-drawer-body {
   padding: 0!important;
+  background: var(--container-bg-color);
 }

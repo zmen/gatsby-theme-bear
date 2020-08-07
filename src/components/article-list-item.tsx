@@ -7,10 +7,9 @@ interface Props {
   active: boolean;
 }
 
-const ArticleListItemContainer = styled.div.attrs((props: Props) => ({
-  style: { background: props.active ? '#eee' : '#fff' }
-}))<Props>`
+const ArticleListItemContainer = styled.div<Props>`
   display: flex;
+  background: transparent;
 `;
 
 const DateBlock = styled.div`
@@ -24,7 +23,7 @@ const DateBlock = styled.div`
 
 const MainBlock = styled.div`
   flex: 1;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--primary-border-color);
   padding-right: 12px;
 `;
 
@@ -42,7 +41,7 @@ const ArticleContent = styled.div`
 
 const HighlightBar = styled.div`
   width: 6px;
-  background: #ee3918;
+  background: var(--primary-color);
   flex-shrink: 0;
 `;
 

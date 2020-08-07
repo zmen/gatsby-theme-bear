@@ -7,6 +7,7 @@ import { Spin } from 'antd';
 let octokit: Octokit = null;
 
 const UserInfoWrapper = styled.div`
+  color: var(--text-color);
   padding: 32px;
 `;
 
@@ -46,7 +47,7 @@ const GithubUserInfo = ({ auth }) => {
     })();
   }, []);
 
-  if (!auth) return (<UserInfoWrapperAlignCenter>Auth token is empty</UserInfoWrapperAlignCenter>);
+  if (!auth) return (<UserInfoWrapperAlignCenter>Auth token is required</UserInfoWrapperAlignCenter>);
   if (!name) return (<UserInfoWrapperAlignCenter><Spin /></UserInfoWrapperAlignCenter>);
 
   return (<UserInfoWrapper>

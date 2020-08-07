@@ -12,7 +12,7 @@ interface Props {
 const ArticleListContainer = styled.div.attrs((props: Props) => ({
   style: { paddingTop: props.paddingTop + 'px' }
 }))<Props>`
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--primary-border-color);
   width: 100%;
   height: 100%;
   overflow-y: scroll;

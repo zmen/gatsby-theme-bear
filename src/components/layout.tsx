@@ -9,6 +9,7 @@ import CSSVariable from './css-variable';
 import GeometryContext from '../context/GeometryContext';
 import VisibilityContext from '../context/VisibilityContext';
 import PostContext from '../context/PostContext';
+import ThemeContext from '../context/ThemeContext';
 
 import Header from './header';
 import Resizer from './resizer';
@@ -16,12 +17,14 @@ import './layout.css';
 import '../utils/fontawesome';
 import ArticleListItem from './article-list-item';
 import GithubUserInfo from './github-user-info';
+import ThemePreview from './theme-preview';
 
 const AppContainer = styled.div`
   box-shadow: var(--container-shadow);
   border-radius: var(--container-border-radius);
   width: var(--container-initial-width);
   height: var(--container-initial-height);
+  background: var(--container-bg-color);
   position: relative;
   display: flex;
   overflow: hidden;
@@ -57,6 +60,7 @@ const Layout = ({ children, left, mid }) => {
     state: { isSettingDialogVisible, isAboutDialogVisible, isArticleListDialogVisible },
     dispatch: vDispatch,
   } = useContext(VisibilityContext);
+  const { state: { theme, themeList, currentTheme }, dispatch: tDispatch } = useContext(ThemeContext);
 
   const [initialTagColWidth] = useState(tagColWidth);
   const [initialArticleColWidth] = useState(articleColWidth);
@@ -80,7 +84,7 @@ const Layout = ({ children, left, mid }) => {
   }, []);
 
   return (
-    <CSSVariable>
+    <CSSVariable {...theme}>
       <AppContainer>
         <Header />
         {left && <ListContainer width={delayedTagWidth} ref={leftEle}>{left}</ListContainer>}
@@ -92,15 +96,27 @@ const Layout = ({ children, left, mid }) => {
         <Drawer
           title="SETTING"
           placement="right"
+          getContainer={false}
           onClose={() => vDispatch({type: 'toggleSettingDialog'})}
           visible={isSettingDialogVisible}
         >
-          <div style={{ padding: '32px' }}>🤔</div>
+          <List
+            dataSource={themeList}
+            renderItem={themeName => (
+              <ThemePreview
+                onClick={() => tDispatch({type: 'setTheme', value: themeName})}
+                currentTheme={currentTheme}
+                key={themeName}
+                themeName={themeName}
+              />
+            )}
+          /> 
         </Drawer>
 
         <Drawer
           title="ABOUT"
           placement="right"
+          getContainer={false}
           onClose={() => vDispatch({type: 'toggleAboutDialog'})}
           visible={isAboutDialogVisible}
         >
