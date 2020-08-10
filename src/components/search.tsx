@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 const SearchContainer = styled.div`
   padding: 12px 20px;
@@ -23,10 +24,11 @@ const SearchInput = styled.input`
 `;
 
 const Search = ({ text, setText }) => {
+  const { t } = useTranslation();
 
   return <SearchContainer>
     <SearchInput
-      placeholder="search article"
+      placeholder={t('search articles')}
       value={text}
       onChange={e => setText(e.target.value)}
     />

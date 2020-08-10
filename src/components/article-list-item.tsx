@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { useLocation } from "@reach/router";
 
+import DateTransform from './date-transform';
+
 interface Props {
   active: boolean;
 }
@@ -61,7 +63,7 @@ const ArticleListItem = ({ title, date, content, slug, matchText } : ArticleList
 
   return (<ArticleListItemContainer active={locationInfo.pathname === slug}>
     {locationInfo.pathname === slug && <HighlightBar />}
-    <DateBlock>{ date }</DateBlock> 
+    <DateBlock><DateTransform date={date} /></DateBlock> 
     <Link to={slug + locationInfo.search}>
       <MainBlock>
         <ArticleTitle className="two-lines">{HighlightText({ text: title, pattern: matchText })}</ArticleTitle>

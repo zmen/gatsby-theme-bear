@@ -5,6 +5,7 @@ import { delay, map } from 'rxjs/operators';
 import { useObservable } from 'rxjs-hooks';
 import { Drawer, List } from 'antd';
 import CSSVariable from './css-variable';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 import GeometryContext from '../context/GeometryContext';
 import VisibilityContext from '../context/VisibilityContext';
@@ -51,6 +52,8 @@ const ArticleArea = styled.main`
 `;
 
 const Layout = ({ children, left, mid }) => {
+  const { t } = useTranslation();
+
   const leftEle = useRef(null);
   const rightEle = useRef(null);
 
@@ -94,7 +97,7 @@ const Layout = ({ children, left, mid }) => {
         <ArticleArea>{children}</ArticleArea>
 
         <Drawer
-          title="SETTING"
+          title={t('SETTING')}
           placement="right"
           getContainer={false}
           onClose={() => vDispatch({type: 'toggleSettingDialog'})}
@@ -114,7 +117,7 @@ const Layout = ({ children, left, mid }) => {
         </Drawer>
 
         <Drawer
-          title="ABOUT"
+          title={t('ABOUT')}
           placement="right"
           getContainer={false}
           onClose={() => vDispatch({type: 'toggleAboutDialog'})}
@@ -124,7 +127,7 @@ const Layout = ({ children, left, mid }) => {
         </Drawer>
 
         <Drawer
-          title="Articles"
+          title={t('articles')}
           placement="left"
           getContainer={false}
           onClose={() => vDispatch({type: 'toggleArticleListDialog'})}

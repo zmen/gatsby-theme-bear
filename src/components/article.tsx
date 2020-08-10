@@ -2,8 +2,9 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Popover } from 'antd';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
-import dateformat from '../utils/Date';
+import dateformat from 'dateformat';
 import { analyzeText } from '../utils/TextStatistics';
 
 import GeometryContext from '../context/GeometryContext';
@@ -21,7 +22,7 @@ const ArticleInfoContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 64px;
+  width: var(--article-padding);
   padding: 32px 0;
   flex-shrink: 0;
   color: var(--primary-font-color);
@@ -128,7 +129,9 @@ export default Article;
 function renderPopoverContent (created: string, rawMarkdownBody: string) {
   const createdDate = new Date(created);
   const day = dateformat(createdDate, 'dd');
-  const date = dateformat(createdDate, 'mmmm yyyy hh:MM');
+  const date = dateformat(createdDate, 'mm yyyy hh:MM');
+
+  const { t } = useTranslation();
 
   const { char, word, para, readingTime } = analyzeText(rawMarkdownBody);
 
@@ -137,21 +140,21 @@ function renderPopoverContent (created: string, rawMarkdownBody: string) {
       <PopoverContentDay>{day}</PopoverContentDay>
       <PopoverContentDate>
         <div>{date}</div>
-        <PopoverContentTipText>CREATED DATE</PopoverContentTipText>
+        <PopoverContentTipText>{t('create date')}</PopoverContentTipText>
       </PopoverContentDate>
     </PopoverContentLine>
     <PopoverContentLine>
       <PopoverContentBlock>
-        <div>{word}</div><PopoverContentTipText>WORDS</PopoverContentTipText>
+        <div>{word}</div><PopoverContentTipText>{t('words')}</PopoverContentTipText>
       </PopoverContentBlock >
       <PopoverContentBlock>
-        <div>{char}</div><PopoverContentTipText>CHARACTERS</PopoverContentTipText>
+        <div>{char}</div><PopoverContentTipText>{t('characters')}</PopoverContentTipText>
       </PopoverContentBlock>
       <PopoverContentBlock>
-        <div>{readingTime}</div><PopoverContentTipText>READING TIME</PopoverContentTipText>
+        <div>{readingTime}</div><PopoverContentTipText>{t('reading time')}</PopoverContentTipText>
       </PopoverContentBlock>
       <PopoverContentBlock>
-        <div>{para}</div><PopoverContentTipText>PARAGRAPHS</PopoverContentTipText>
+        <div>{para}</div><PopoverContentTipText>{t('paragraphs')}</PopoverContentTipText>
       </PopoverContentBlock>
     </PopoverContentLine>
   </PopoverContentContainer>;

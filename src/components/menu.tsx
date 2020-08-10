@@ -4,6 +4,7 @@ import { navigate } from '@reach/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation } from "@reach/router";
 import VisibilityContext from '../context/VisibilityContext';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 import { Tag, tagIconMap } from '../utils/Tag';
 
@@ -18,6 +19,7 @@ const TagName = styled.span`padding-left: 8px;`;
 const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
   if (tags.length === 0) return null;
 
+  const { t } = useTranslation();
   const locationInfo = useLocation();
   const tagMatch = locationInfo.search.match(/[\&\?]tag=(\w+)/);
   const matchedTag = tagMatch ? tagMatch[1] : null;
@@ -52,8 +54,8 @@ const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
             paddingTop: '2px',
             paddingBottom: '2px',
           }}>
-            <FontAwesomeIcon icon={tagIconMap(d.tagname)} />
-            <TagName>{d.tagname}</TagName>
+            <FontAwesomeIcon icon={tagIconMap(d.tagname)} style={{ width: '16px' }} />
+            <TagName>{t(d.tagname)}</TagName>
           </div>
           {d.children && <Tags tags={d.children} level={level + 1} />}
         </li>)

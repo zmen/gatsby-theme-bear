@@ -48,7 +48,7 @@ export function isTagInclude (blogTag: string[], tag: string): boolean {
   return blogTag.some(tagList => tagList.split('/').includes(tag));
 }
 
-export function tagIconMap (tagname) {
+export function tagIconMap (tagname: string) {
   if (['HOME', '首页'].includes(tagname)) return 'home';
   if (['SETTING', '设置'].includes(tagname)) return 'cog';
   if (['ABOUT', '关于'].includes(tagname)) return 'user';

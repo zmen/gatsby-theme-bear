@@ -53,6 +53,21 @@ module.exports = {
           }
         ]
       }
+    },
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        path: `${__dirname}/locales`,
+        languages: [`en`, `zh`],
+        defaultLanguage: `zh`,
+  
+        // you can pass any i18next options
+        // pass following options to allow message content as a key
+        i18nextOptions: {
+          keySeparator: false,
+          nsSeparator: false
+        }
+      }
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
