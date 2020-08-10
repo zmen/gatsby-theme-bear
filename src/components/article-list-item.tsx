@@ -10,6 +10,7 @@ interface Props {
 const ArticleListItemContainer = styled.div<Props>`
   display: flex;
   background: transparent;
+  position: relative;
 `;
 
 const DateBlock = styled.div`
@@ -40,9 +41,11 @@ const ArticleContent = styled.div`
 `;
 
 const HighlightBar = styled.div`
+  position: absolute;
+  height: 100%;
+  left: 0;
   width: 6px;
   background: var(--primary-color);
-  flex-shrink: 0;
 `;
 
 interface ArticleListItemProps {

@@ -18,12 +18,8 @@ const BlogPost = ({ data }) => {
   const { markdownRemark } = data
   const { posts, tags } = useContext(PostContext);
   const locationInfo = useLocation();
-  const [files, setFiles] = useState([]);
-
-  useEffect(() => {
-    const tag = queryString.parse(locationInfo.search).tag;
-    setFiles(posts.filter(file => isTagInclude(file.tags, tag as string)));
-  }, [locationInfo.search]);
+  const tag = queryString.parse(locationInfo.search).tag;
+  const files = posts.filter(file => isTagInclude(file.tags, tag as string));
 
   return (
     <Layout
