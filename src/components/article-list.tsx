@@ -9,7 +9,7 @@ interface Props {
   paddingTop: number;
 }
 
-const ArticleListContainer = styled.div.attrs((props: Props) => ({
+const StyledList = styled.div.attrs((props: Props) => ({
   style: { paddingTop: props.paddingTop + 'px' }
 }))<Props>`
   border-right: 1px solid var(--primary-border-color);
@@ -25,7 +25,7 @@ const ArticleList = ({ articles }) => {
   const { state: { tagColWidth } } = useContext(GeometryContext);
 
   return (
-    <ArticleListContainer paddingTop={tagColWidth === 0 ? 12 : 0}>
+    <StyledList paddingTop={tagColWidth === 0 ? 12 : 0}>
       <Search text={text} setText={setText} />
       {articles.filter(({ title, content }) => matchText([title, content], text))
         .map(({ title, date, content, slug }) => {
@@ -38,7 +38,7 @@ const ArticleList = ({ articles }) => {
             date={date}
           />
       })}
-    </ArticleListContainer>
+    </StyledList>
   )
 };
 

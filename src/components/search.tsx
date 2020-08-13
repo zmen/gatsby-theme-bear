@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
 
-const SearchContainer = styled.div`
+const StyledSearchContainer = styled.div`
   padding: 12px 20px;
   border-bottom: 1px solid var(--primary-border-color);
   position: relative;
 `;
 
-const SearchInput = styled.input`
+const StyledSearchInput = styled.input`
   border-radius: 4px;
   border: 1px solid var(--primary-border-color);
   box-sizing: border-box;
@@ -26,13 +26,13 @@ const SearchInput = styled.input`
 const Search = ({ text, setText }) => {
   const { t } = useTranslation();
 
-  return <SearchContainer>
-    <SearchInput
+  return <StyledSearchContainer>
+    <StyledSearchInput
       placeholder={t('search articles')}
       value={text}
       onChange={e => setText(e.target.value)}
     />
-  </SearchContainer>;
+  </StyledSearchContainer>;
 };
 
 export default Search;

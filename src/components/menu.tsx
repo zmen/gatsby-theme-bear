@@ -64,7 +64,7 @@ const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
   );
 };
 
-const MenuContainer = styled.div`
+const StyledMenu = styled.div`
   padding-top: 32px;
   font-size: 14px;
   width: 100%;
@@ -76,10 +76,10 @@ const MenuContainer = styled.div`
 const Menu = ({ tags } : { tags: Tag[] }) => {
 
   return (
-    <MenuContainer>
+    <StyledMenu>
       <Tags key="static" level={1} tags={menus} />
       <Tags key="dynamic" level={1} tags={tags} />
-    </MenuContainer>
+    </StyledMenu>
   );
 };
 

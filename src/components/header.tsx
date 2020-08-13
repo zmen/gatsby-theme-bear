@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import GeometryContext from '../context/GeometryContext';
 
-const HeaderContainer = styled.header`
+const StyledContainer = styled.header`
   height: 22px;
   display: flex;
   align-items: center;
@@ -13,7 +13,7 @@ const HeaderContainer = styled.header`
   z-index: 42;
 `;
 
-const Dot = styled.div`
+const StyledDot = styled.div`
   width: 12px;
   height: 12px;
   border-radius: 100%;
@@ -29,11 +29,11 @@ const Header = () => {
   const { dispatch } = useContext(GeometryContext);
 
   return (
-    <HeaderContainer>
-      <Dot color="#fc4848" onClick={() => dispatch({type: 'resetLayout'}) } />
-      <Dot color="#fdb625" onClick={() => dispatch({type: 'switchNoTagMode'})}/>
-      <Dot color="#2ac933" onClick={() => dispatch({type: 'switchZenMode'})}/>
-    </HeaderContainer>
+    <StyledContainer>
+      <StyledDot color="#fc4848" onClick={() => dispatch({type: 'resetLayout'}) } />
+      <StyledDot color="#fdb625" onClick={() => dispatch({type: 'switchNoTagMode'})}/>
+      <StyledDot color="#2ac933" onClick={() => dispatch({type: 'switchZenMode'})}/>
+    </StyledContainer>
   );
 };
 

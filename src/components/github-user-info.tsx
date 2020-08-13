@@ -6,21 +6,21 @@ import { Spin } from 'antd';
 
 let octokit: Octokit = null;
 
-const UserInfoWrapper = styled.div`
+const StyledUserInfo = styled.div`
   color: var(--text-color);
   padding: 32px;
 `;
 
-const UserInfoWrapperAlignCenter = styled(UserInfoWrapper)`
+const StyledAlignedUserInfo = styled(StyledUserInfo)`
   text-align: center;
 `;
 
-const Avatar = styled.img`
+const StyledAvatar = styled.img`
   border-radius: 100%;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 `;
 
-const UserName = styled.h1`
+const StyledUserName = styled.h1`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 12px;
@@ -47,12 +47,12 @@ const GithubUserInfo = ({ auth }) => {
     })();
   }, []);
 
-  if (!auth) return (<UserInfoWrapperAlignCenter>Auth token is required</UserInfoWrapperAlignCenter>);
-  if (!name) return (<UserInfoWrapperAlignCenter><Spin /></UserInfoWrapperAlignCenter>);
+  if (!auth) return (<StyledAlignedUserInfo>Auth token is required</StyledAlignedUserInfo>);
+  if (!name) return (<StyledAlignedUserInfo><Spin /></StyledAlignedUserInfo>);
 
-  return (<UserInfoWrapper>
-    <Avatar src={avatar} />
-    <UserName>{name}</UserName>
+  return (<StyledUserInfo>
+    <StyledAvatar src={avatar} />
+    <StyledUserName>{name}</StyledUserName>
     <div>
       <FontAwesomeIcon icon="location-arrow" />
       &nbsp;{myLocation}
@@ -65,7 +65,7 @@ const GithubUserInfo = ({ auth }) => {
       <FontAwesomeIcon icon="github" />
       &nbsp;{url}
     </a> 
-  </UserInfoWrapper>);
+  </StyledUserInfo>);
 };
 
 export default GithubUserInfo;

@@ -11,7 +11,7 @@ interface Props {
   onMouseDown: any;
 }
 
-const ResizerEle = styled.div.attrs((props: Props) => ({
+const StyledHolder = styled.div.attrs((props: Props) => ({
   style: {
     left: props.left + 'px'
   }
@@ -55,7 +55,7 @@ const Resizer = ({ left, relateEle, setData }) => {
     }
   }, [offsetData]);
 
-  return <ResizerEle onMouseDown={onMouseDown} left={left - 5} />
+  return <StyledHolder onMouseDown={onMouseDown} left={left - 5} />
 };
 
 export default Resizer;

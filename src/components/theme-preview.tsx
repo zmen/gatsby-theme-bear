@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { themes } from '../source/theme';
 
-const ThemePreviewContainer = styled.div`
+const StyledContainer = styled.div`
   padding: 6px 12px;
 `;
 
@@ -11,7 +11,7 @@ interface ThemePreviewBlockProps {
   active: boolean;
 }
 
-const ThemePreviewBlock = styled.div<ThemePreviewBlockProps>`
+const StyledBlock = styled.div<ThemePreviewBlockProps>`
   background: ${props => props.background};
   padding: 8px 12px;
   border-radius: 4px;
@@ -25,7 +25,7 @@ interface ThemeTitleProps {
   color: string;
 }
 
-const ThemeTitle = styled.h1<ThemeTitleProps>`
+const StyledTitle = styled.h1<ThemeTitleProps>`
   color: ${props => props.color};
   font-size: 16px;
   font-weight: bold;
@@ -37,19 +37,19 @@ interface ThemeTextProps {
   color: string;
 }
 
-const ThemeText = styled.p<ThemeTextProps>`
+const StyledText = styled.p<ThemeTextProps>`
   font-size: 12px;
   color: ${props => props.color};
 `;
 
 const ThemePreview = ({ themeName, onClick, currentTheme }) => {
   const theme = themes.map[themeName];
-  return (<ThemePreviewContainer>
-    <ThemePreviewBlock background={theme['container-bg-color']} active={currentTheme === themeName} onClick={onClick}>
-      <ThemeTitle color={theme['primary-font-color']+'!important'}>{themeName}</ThemeTitle>
-      <ThemeText color={theme['text-color']}>lorem ipsum dolor sit amer pharetra Domec</ThemeText>
-    </ThemePreviewBlock>
-  </ThemePreviewContainer>);
+  return (<StyledContainer>
+    <StyledBlock background={theme['container-bg-color']} active={currentTheme === themeName} onClick={onClick}>
+      <StyledTitle color={theme['primary-font-color']+'!important'}>{themeName}</StyledTitle>
+      <StyledText color={theme['text-color']}>lorem ipsum dolor sit amer pharetra Domec</StyledText>
+    </StyledBlock>
+  </StyledContainer>);
 }
 
 export default ThemePreview;

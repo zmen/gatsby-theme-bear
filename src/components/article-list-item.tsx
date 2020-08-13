@@ -9,13 +9,13 @@ interface Props {
   active: boolean;
 }
 
-const ArticleListItemContainer = styled.div<Props>`
+const StyledContainer = styled.div<Props>`
   display: flex;
   background: transparent;
   position: relative;
 `;
 
-const DateBlock = styled.div`
+const StyledDate = styled.div`
   width: 44px;
   flex-shrink: 0;
   color: #b4b4b4;
@@ -24,13 +24,13 @@ const DateBlock = styled.div`
   margin-top: 8px;
 `;
 
-const MainBlock = styled.div`
+const StyledBlock = styled.div`
   flex: 1;
   border-bottom: 1px solid var(--primary-border-color);
   padding-right: 12px;
 `;
 
-const ArticleTitle = styled.h3`
+const StyledTitle = styled.h3`
   font-size: 16px;
   margin-top: 12px;
   margin-bottom: 6px;
@@ -41,7 +41,7 @@ const ArticleTitle = styled.h3`
   -webkit-box-orient: vertical;
 `;
 
-const ArticleContent = styled.div`
+const StyledArticleContent = styled.div`
   font-size: 14px;
   color: #8f8f8f;
   margin-bottom: 8px;
@@ -52,7 +52,7 @@ const ArticleContent = styled.div`
   -webkit-box-orient: vertical;
 `;
 
-const HighlightBar = styled.div`
+const StyledHighlightBar = styled.div`
   position: absolute;
   height: 100%;
   left: 0;
@@ -71,21 +71,21 @@ interface ArticleListItemProps {
 const ArticleListItem = ({ title, date, content, slug, matchText } : ArticleListItemProps) => {
   const locationInfo = useLocation();
 
-  return (<ArticleListItemContainer active={locationInfo.pathname === slug}>
-    {locationInfo.pathname === slug && <HighlightBar />}
-    <DateBlock><DateTransform date={date} /></DateBlock> 
+  return (<StyledContainer active={locationInfo.pathname === slug}>
+    {locationInfo.pathname === slug && <StyledHighlightBar />}
+    <StyledDate><DateTransform date={date} /></StyledDate> 
     <Link to={slug + locationInfo.search}>
-      <MainBlock>
-        <ArticleTitle className="two-lines">{HighlightText({ text: title, pattern: matchText })}</ArticleTitle>
-        <ArticleContent>{HighlightText({ text: content, pattern: matchText })}</ArticleContent>
-      </MainBlock>
+      <StyledBlock>
+        <StyledTitle className="two-lines">{HighlightText({ text: title, pattern: matchText })}</StyledTitle>
+        <StyledArticleContent>{HighlightText({ text: content, pattern: matchText })}</StyledArticleContent>
+      </StyledBlock>
     </Link>
-  </ArticleListItemContainer>);
+  </StyledContainer>);
 };
 
 export default ArticleListItem;
 
-const HighlightTextWrapper = styled.p`
+const StyledHighlightText = styled.p`
   padding: 0;
   margin: 0;
   & strong {
@@ -94,7 +94,7 @@ const HighlightTextWrapper = styled.p`
 `;
 
 function HighlightText ({ text, pattern }) {
-  if (pattern === '') return <HighlightTextWrapper>{text}</HighlightTextWrapper>;
+  if (pattern === '') return <StyledHighlightText>{text}</StyledHighlightText>;
   const parsedText = text.replace(new RegExp(`(${pattern})`, 'ig'), '<strong>$1</strong>');
-  return <HighlightTextWrapper dangerouslySetInnerHTML={{ __html: parsedText }} />
+  return <StyledHighlightText dangerouslySetInnerHTML={{ __html: parsedText }} />
 }

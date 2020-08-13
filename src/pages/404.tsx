@@ -5,7 +5,7 @@ import { Link } from 'gatsby';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
-const ContentContainer = styled.div`
+const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +14,7 @@ const ContentContainer = styled.div`
   width: 100%;
 `;
 
-const NavButton = styled.button`
+const StyledNavButton = styled.button`
   border-radius: 100px;
   color: #fff;
   background: red;
@@ -26,13 +26,13 @@ const NavButton = styled.button`
 const NotFoundPage = () => (
   <Layout left={null} mid={null}>
     <SEO title="404: Not found" />
-    <ContentContainer>
+    <StyledContent>
       <h1>NOT FOUND</h1>
       <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
       <Link to='/'>
-        <NavButton>➡ HOME</NavButton>
+        <StyledNavButton>➡ HOME</StyledNavButton>
       </Link>
-    </ContentContainer>
+    </StyledContent>
   </Layout>
 );
 

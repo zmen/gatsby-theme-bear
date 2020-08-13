@@ -19,7 +19,7 @@ import ArticleListItem from './article-list-item';
 import GithubUserInfo from './github-user-info';
 import ThemePreview from './theme-preview';
 
-const AppContainer = styled.div`
+const StyledAppContainer = styled.div`
   box-shadow: var(--container-shadow);
   border-radius: var(--container-border-radius);
   width: var(--container-initial-width);
@@ -34,7 +34,7 @@ interface Props {
   var: string;
 }
 
-const ListContainer = styled.div.attrs((props: Props) => ({
+const StyledListContainer = styled.div.attrs((props: Props) => ({
   style: { width: `var(--${props.var})` }
 }))<Props>`
   flex-shrink: 0;
@@ -42,7 +42,7 @@ const ListContainer = styled.div.attrs((props: Props) => ({
   transition: width .3s;
 `;
 
-const ArticleArea = styled.main`
+const StyledArticleArea = styled.main`
   flex: 1;
   position: relative;
   overflow: hidden;
@@ -87,13 +87,13 @@ const Layout = ({ children, left, mid }) => {
 
   return (
     <Container>
-      <AppContainer>
+      <StyledAppContainer>
         <Header />
-        {left && <ListContainer var="tag-col-width" ref={leftEle}>{left}</ListContainer>}
+        {left && <StyledListContainer var="tag-col-width" ref={leftEle}>{left}</StyledListContainer>}
         {left && <Resizer left={delayedTagWidth} setData={value => gDispatch({type: 'setTagColWidth', value})} relateEle={leftEle}></Resizer>}
-        {mid && <ListContainer var="article-col-width" ref={rightEle}>{mid}</ListContainer>}
+        {mid && <StyledListContainer var="article-col-width" ref={rightEle}>{mid}</StyledListContainer>}
         {mid && <Resizer left={delayedTagWidth + delayedListWidth} setData={value => gDispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>}
-        <ArticleArea>{children}</ArticleArea>
+        <StyledArticleArea>{children}</StyledArticleArea>
 
         <Drawer
           title={t('SETTING')}
@@ -146,7 +146,7 @@ const Layout = ({ children, left, mid }) => {
             )}
             ></List>
         </Drawer>
-      </AppContainer>
+      </StyledAppContainer>
     </Container>
   );
 

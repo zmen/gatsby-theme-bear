@@ -11,13 +11,13 @@ import GeometryContext from '../context/GeometryContext';
 import VisibilityContext from '../context/VisibilityContext';
 import ThemeContext, { darkThemes } from '../context/ThemeContext';
 
-const ArticleContainer = styled.div`
+const StyledArticleContainer = styled.div`
   padding-left: var(--article-padding);
   height: 100%;
   display: flex;
 `;
 
-const ArticleInfoContainer = styled.div`
+const StyledArticleInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,14 +28,66 @@ const ArticleInfoContainer = styled.div`
   color: var(--primary-font-color);
 `;
 
-const MarkdownBody = styled.div`
+const StyledMarkdownBody = styled.div`
   overflow: scroll;
   padding: 32px 0 120px;
 `;
 
-const MarkdownFrontMatter = styled.div`
+const StyledMarkdownFrontMatter = styled.div`
   margin-bottom: 32px;
 `;
+
+const StyledTag = styled.span`
+  color: var(--tag-font-color);
+  background: var(--tag-bg-color);
+  display: inline-block;
+  border-radius: 100px;
+  margin-right: 6px;
+  margin-bottom: 2px;
+  padding: 2px 12px;
+  white-space: nowrap;
+  font-size: 14px;
+`;
+
+const Article = ({ markdownRemark }) => {
+  const [infoVisible, setInfoVisible] = useState(false);
+  const { frontmatter: { title, tags } } = markdownRemark;
+  const { dispatch } = useContext(VisibilityContext);
+  const { state: { articleColWidth } } = useContext(GeometryContext);
+  const { state: { currentTheme } } = useContext(ThemeContext);
+
+  return (<StyledArticleContainer>
+    <StyledMarkdownBody>
+      <StyledMarkdownFrontMatter>
+        <h1>{title}</h1>
+        {tags.map((tag: string) => <StyledTag key={tag}>#{tag}</StyledTag>)}
+      </StyledMarkdownFrontMatter>
+      <div className={darkThemes.includes(currentTheme) ? 'markdown-body dark' : 'markdown-body'} dangerouslySetInnerHTML={{__html: markdownRemark.html}}></div>
+    </StyledMarkdownBody>
+    <StyledArticleInfo>
+      <Popover
+        arrowPointAtCenter
+        trigger="click"
+        title={null}
+        placement="bottomRight"
+        content={renderPopoverContent(markdownRemark.frontmatter.created, markdownRemark.rawMarkdownBody)}
+        visible={infoVisible}
+        onVisibleChange={setInfoVisible}
+      >
+        <FontAwesomeIcon icon="info-circle" />
+      </Popover>
+      {articleColWidth === 0 && <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <FontAwesomeIcon onClick={() => dispatch({type: 'toggleAboutDialog'})} icon="user" style={{ marginBottom: '16px' }} />
+        <FontAwesomeIcon onClick={() => dispatch({type: 'toggleArticleListDialog'}) } icon="bars" />
+      </div>}
+    </StyledArticleInfo>
+  </StyledArticleContainer>)
+};
+
+export default Article;
+
+
+/** Popover Content */
 
 const PopoverContentContainer = styled.div`
   margin-right: -16px;
@@ -74,57 +126,6 @@ const PopoverContentDate = styled.div`
   flex: 4;
   padding-left: 16px;
 `;
-
-const InlineTag = styled.span`
-  color: var(--tag-font-color);
-  background: var(--tag-bg-color);
-  display: inline-block;
-  border-radius: 100px;
-  margin-right: 6px;
-  margin-bottom: 2px;
-  padding: 2px 12px;
-  white-space: nowrap;
-  font-size: 14px;
-`;
-
-const Article = ({ markdownRemark }) => {
-  const [infoVisible, setInfoVisible] = useState(false);
-
-  const { frontmatter: { title, tags } } = markdownRemark;
-
-  const { dispatch } = useContext(VisibilityContext);
-  const { state: { articleColWidth } } = useContext(GeometryContext);
-  const { state: { currentTheme } } = useContext(ThemeContext);
-
-  return (<ArticleContainer>
-    <MarkdownBody>
-      <MarkdownFrontMatter>
-        <h1>{title}</h1>
-        {tags.map((tag: string) => <InlineTag key={tag}>#{tag}</InlineTag>)}
-      </MarkdownFrontMatter>
-      <div className={darkThemes.includes(currentTheme) ? 'markdown-body dark' : 'markdown-body'} dangerouslySetInnerHTML={{__html: markdownRemark.html}}></div>
-    </MarkdownBody>
-    <ArticleInfoContainer>
-      <Popover
-        arrowPointAtCenter
-        trigger="click"
-        title={null}
-        placement="bottomRight"
-        content={renderPopoverContent(markdownRemark.frontmatter.created, markdownRemark.rawMarkdownBody)}
-        visible={infoVisible}
-        onVisibleChange={setInfoVisible}
-      >
-        <FontAwesomeIcon icon="info-circle" />
-      </Popover>
-      {articleColWidth === 0 && <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <FontAwesomeIcon onClick={() => dispatch({type: 'toggleAboutDialog'})} icon="user" style={{ marginBottom: '16px' }} />
-        <FontAwesomeIcon onClick={() => dispatch({type: 'toggleArticleListDialog'}) } icon="bars" />
-      </div>}
-    </ArticleInfoContainer>
-  </ArticleContainer>)
-};
-
-export default Article;
 
 function renderPopoverContent (created: string, rawMarkdownBody: string) {
   const createdDate = new Date(created);
