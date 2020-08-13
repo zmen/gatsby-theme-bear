@@ -9,16 +9,7 @@ const ContainerLayout = styled.div`
   font-size: 18px;
 `;
 
-const CSSVariable = styled(ContainerLayout).attrs(props => {
-  return {
-    style: Object.entries(props)
-      .filter(([_, v]) => typeof v === 'number' || typeof v === 'string')
-      .reduce((p, [k, v]) => {
-        p[`--${k}`] = v;
-        return p;
-      }, {}),
-  };
-})`
+const Container = styled(ContainerLayout)`
   h1,h2,h3,h4,h5,h6 {
     color: var(--primary-font-color);
   }
@@ -35,4 +26,4 @@ const CSSVariable = styled(ContainerLayout).attrs(props => {
   }
 `;
 
-export default CSSVariable;
+export default Container;

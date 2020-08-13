@@ -1,25 +1,16 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 interface Store {
   tagColWidth: number;
   articleColWidth: number;
-  toTop: number;
-  toLeft: number;
-  toRight: number;
-  toBottom: number;
 }
 
 const defaultStore = {
   tagColWidth: 200,
   articleColWidth: 300,
-  toTop: 0,
-  toLeft: 0,
-  toRight: 0,
-  toBottom: 0,
 };
-const initialStore = getInitialStore();
 
-const GeometryContext = React.createContext({ state: initialStore, dispatch: null });
+const GeometryContext = React.createContext({ state: defaultStore, dispatch: null });
 
 interface ReducerAction<T> {
   type: string;
@@ -46,12 +37,26 @@ const reducer = (state: Store, action: ReducerAction<number>) => {
       break;
     default: void 0;
   }
+  
   localStorage.setItem('geometry-context', JSON.stringify(result));
+
+  const root = window.document.documentElement;
+  root.style.setProperty('--tag-col-width', result.tagColWidth + 'px');
+  root.style.setProperty('--article-col-width', result.articleColWidth + 'px');
+
   return result;
 };
 
 export const GeometryProvider = ({children}) => {
-  const [state, dispatch] = useReducer(reducer, initialStore);
+  const [state, dispatch] = useReducer(reducer, defaultStore);
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    const tagColWidth = parseFloat(root.style.getPropertyValue('--tag-col-width'));
+    const articleColWidth = parseFloat(root.style.getPropertyValue('--article-col-width'));
+    dispatch({ type: 'setTagColWidth', value: tagColWidth });
+    dispatch({ type: 'setArticleColWidth', value: articleColWidth });
+  }, []);
 
   return (
     <GeometryContext.Provider value={{ state, dispatch }}>
@@ -61,16 +66,3 @@ export const GeometryProvider = ({children}) => {
 };
 
 export default GeometryContext;
-
-function getInitialStore (): Store {
-  let result = null;
-  try {
-    result = JSON.parse(localStorage.getItem('geometry-context'));
-  } catch (error) {
-    console.error(error.msg);
-  }
-  if (result === null) {
-    return defaultStore;
-  }
-  return result;
-}

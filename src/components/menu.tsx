@@ -77,8 +77,8 @@ const Menu = ({ tags } : { tags: Tag[] }) => {
 
   return (
     <MenuContainer>
-      <Tags level={1} tags={menus} />
-      <Tags level={1} tags={tags} />
+      <Tags key="static" level={1} tags={menus} />
+      <Tags key="dynamic" level={1} tags={tags} />
     </MenuContainer>
   );
 };

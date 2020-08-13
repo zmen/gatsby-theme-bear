@@ -34,12 +34,22 @@ const ArticleTitle = styled.h3`
   font-size: 16px;
   margin-top: 12px;
   margin-bottom: 6px;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const ArticleContent = styled.div`
   font-size: 14px;
   color: #8f8f8f;
   margin-bottom: 8px;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const HighlightBar = styled.div`
@@ -67,7 +77,7 @@ const ArticleListItem = ({ title, date, content, slug, matchText } : ArticleList
     <Link to={slug + locationInfo.search}>
       <MainBlock>
         <ArticleTitle className="two-lines">{HighlightText({ text: title, pattern: matchText })}</ArticleTitle>
-        <ArticleContent className="two-lines">{HighlightText({ text: content, pattern: matchText })}</ArticleContent>
+        <ArticleContent>{HighlightText({ text: content, pattern: matchText })}</ArticleContent>
       </MainBlock>
     </Link>
   </ArticleListItemContainer>);

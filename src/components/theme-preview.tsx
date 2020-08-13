@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { themes } from '../context/ThemeContext';
+import { themes } from '../source/theme';
 
 const ThemePreviewContainer = styled.div`
   padding: 6px 12px;
@@ -43,7 +43,7 @@ const ThemeText = styled.p<ThemeTextProps>`
 `;
 
 const ThemePreview = ({ themeName, onClick, currentTheme }) => {
-  const theme = themes[themeName];
+  const theme = themes.map[themeName];
   return (<ThemePreviewContainer>
     <ThemePreviewBlock background={theme['container-bg-color']} active={currentTheme === themeName} onClick={onClick}>
       <ThemeTitle color={theme['primary-font-color']+'!important'}>{themeName}</ThemeTitle>

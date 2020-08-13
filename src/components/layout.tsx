@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { delay, map } from 'rxjs/operators';
 import { useObservable } from 'rxjs-hooks';
 import { Drawer, List } from 'antd';
-import CSSVariable from './css-variable';
+import Container from './container';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 import GeometryContext from '../context/GeometryContext';
@@ -14,7 +14,6 @@ import ThemeContext from '../context/ThemeContext';
 
 import Header from './header';
 import Resizer from './resizer';
-import './layout.css';
 import '../utils/fontawesome';
 import ArticleListItem from './article-list-item';
 import GithubUserInfo from './github-user-info';
@@ -32,11 +31,11 @@ const AppContainer = styled.div`
 `;
 
 interface Props {
-  width: number;
+  var: string;
 }
 
 const ListContainer = styled.div.attrs((props: Props) => ({
-  style: { width: props.width + 'px' }
+  style: { width: `var(--${props.var})` }
 }))<Props>`
   flex-shrink: 0;
   overflow: hidden;
@@ -63,7 +62,7 @@ const Layout = ({ children, left, mid }) => {
     state: { isSettingDialogVisible, isAboutDialogVisible, isArticleListDialogVisible },
     dispatch: vDispatch,
   } = useContext(VisibilityContext);
-  const { state: { theme, themeList, currentTheme }, dispatch: tDispatch } = useContext(ThemeContext);
+  const { state: { themeList, currentTheme }, dispatch: tDispatch } = useContext(ThemeContext);
 
   const [initialTagColWidth] = useState(tagColWidth);
   const [initialArticleColWidth] = useState(articleColWidth);
@@ -73,13 +72,13 @@ const Layout = ({ children, left, mid }) => {
 
   useEffect(() => {
     window.addEventListener('resize', resizeHandler, false);
-
     function resizeHandler () {
       if (window.innerWidth < 1200 && (tagColWidth !== 0 || articleColWidth !== 0)) {
         gDispatch({type: 'setTagColWidth', value: 0});
         gDispatch({type: 'setArticleColWidth', value: 0});
       }
     }
+    resizeHandler();
 
     return () => {
       window.removeEventListener('resize', resizeHandler);
@@ -87,12 +86,12 @@ const Layout = ({ children, left, mid }) => {
   }, []);
 
   return (
-    <CSSVariable {...theme}>
+    <Container>
       <AppContainer>
         <Header />
-        {left && <ListContainer width={delayedTagWidth} ref={leftEle}>{left}</ListContainer>}
+        {left && <ListContainer var="tag-col-width" ref={leftEle}>{left}</ListContainer>}
         {left && <Resizer left={delayedTagWidth} setData={value => gDispatch({type: 'setTagColWidth', value})} relateEle={leftEle}></Resizer>}
-        {mid && <ListContainer width={delayedListWidth} ref={rightEle}>{mid}</ListContainer>}
+        {mid && <ListContainer var="article-col-width" ref={rightEle}>{mid}</ListContainer>}
         {mid && <Resizer left={delayedTagWidth + delayedListWidth} setData={value => gDispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>}
         <ArticleArea>{children}</ArticleArea>
 
@@ -148,7 +147,7 @@ const Layout = ({ children, left, mid }) => {
             ></List>
         </Drawer>
       </AppContainer>
-    </CSSVariable>
+    </Container>
   );
 
   function useDelayedValue<T> (x: T, initialValue: T, delayTime: number): T {

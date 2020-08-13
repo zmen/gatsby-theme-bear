@@ -1,3 +1,15 @@
+
+/* Gatsby */
+#___gatsby,
+#gatsby-focus-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ant-Design */
 .ant-popover-inner {
   border-radius: 10px!important;
 }
