@@ -101,6 +101,7 @@ const Layout = ({ children, left, mid }) => {
           getContainer={false}
           onClose={() => vDispatch({type: 'toggleSettingDialog'})}
           visible={isSettingDialogVisible}
+          style={{ position: 'absolute' }}
         >
           <List
             dataSource={themeList}
@@ -117,10 +118,11 @@ const Layout = ({ children, left, mid }) => {
 
         <Drawer
           title={t('ABOUT')}
-          placement="right"
+          placement="left"
           getContainer={false}
           onClose={() => vDispatch({type: 'toggleAboutDialog'})}
           visible={isAboutDialogVisible}
+          style={{ position: 'absolute' }}
         >
           <GithubUserInfo auth={null} />
         </Drawer>
@@ -131,6 +133,7 @@ const Layout = ({ children, left, mid }) => {
           getContainer={false}
           onClose={() => vDispatch({type: 'toggleArticleListDialog'})}
           visible={isArticleListDialogVisible}
+          style={{ position: 'absolute' }}
         >
           <List
             dataSource={posts}
