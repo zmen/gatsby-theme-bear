@@ -1,15 +1,16 @@
 import React, { useState, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { delay, map } from 'rxjs/operators';
+import { map, debounce } from 'rxjs/operators';
+import { interval } from 'rxjs';
 import { useObservable } from 'rxjs-hooks';
 import Container from './container';
 
 import GeometryContext from '../context/GeometryContext';
 
+import '../utils/fontawesome';
 import Header from './header';
 import Resizer from './resizer';
-import '../utils/fontawesome';
 import FloatingMenu from './floating-menu';
 import DrawerSetting from './drawer-setting';
 import DrawerAbout from './drawer-about';
@@ -26,9 +27,7 @@ const StyledAppContainer = styled.div`
   overflow: hidden;
 `;
 
-interface Props {
-  var: string;
-}
+interface Props { var: string; }
 
 const StyledListContainer = styled.div.attrs((props: Props) => ({
   style: { width: `var(--${props.var})` }
@@ -50,22 +49,28 @@ const Layout = ({ children, left, mid }) => {
   const leftEle = useRef(null);
   const rightEle = useRef(null);
 
-  const { state: { tagColWidth, articleColWidth }, dispatch: gDispatch } = useContext(GeometryContext);
+  const { state: { tagColWidth, articleColWidth }, dispatch } = useContext(GeometryContext);
 
   const [initialTagColWidth] = useState(tagColWidth);
   const [initialArticleColWidth] = useState(articleColWidth);
 
-  const delayedTagWidth = useDelayedValue<number>(tagColWidth, initialTagColWidth, 100);
-  const delayedListWidth = useDelayedValue<number>(articleColWidth, initialArticleColWidth, 100);
+  const debounceTagWidth = useDebounceValue<number>(tagColWidth, initialTagColWidth, 300);
+  const debounceListWidth = useDebounceValue<number>(articleColWidth, initialArticleColWidth, 300);
 
   return (
     <Container>
       <StyledAppContainer>
         <Header />
         {left && <StyledListContainer var="tag-col-width" ref={leftEle}>{left}</StyledListContainer>}
-        {left && <Resizer left={delayedTagWidth} setData={value => gDispatch({type: 'setTagColWidth', value})} relateEle={leftEle}></Resizer>}
+        {left && <Resizer
+          left={debounceTagWidth}
+          setData={(value: number) => dispatch({type: 'setTagColWidth', value})}
+          relateEle={leftEle} />}
         {mid && <StyledListContainer var="article-col-width" ref={rightEle}>{mid}</StyledListContainer>}
-        {mid && <Resizer left={delayedTagWidth + delayedListWidth} setData={value => gDispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>}
+        {mid && <Resizer
+          left={debounceTagWidth + debounceListWidth}
+          setData={(value: number) => dispatch({type: 'setArticleColWidth', value})}
+          relateEle={rightEle} />}
         <StyledArticleArea>{children}</StyledArticleArea>
 
         {articleColWidth === 0 && <FloatingMenu />} 
@@ -76,9 +81,9 @@ const Layout = ({ children, left, mid }) => {
     </Container>
   );
 
-  function useDelayedValue<T> (x: T, initialValue: T, delayTime: number): T {
+  function useDebounceValue<T> (x: T, initialValue: T, debounceTime: number): T {
     const width = useObservable(
-      (_, inputs$) => inputs$.pipe(delay(delayTime), map(([v]) => v)),
+      (_, inputs$) => inputs$.pipe(debounce(() => interval(debounceTime)), map(([v]) => v)),
       initialValue,
       [x],
     );
