@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { delay, map } from 'rxjs/operators';
@@ -6,6 +6,18 @@ import { useObservable } from 'rxjs-hooks';
 import { Drawer, List } from 'antd';
 import Container from './container';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
+
+import {
+  FloatingMenu,
+  MainButton,
+  ChildButton,
+} from 'react-floating-button-menu';
+import {
+  PlusOutlined,
+  MinusOutlined,
+  UnorderedListOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 
 import GeometryContext from '../context/GeometryContext';
 import VisibilityContext from '../context/VisibilityContext';
@@ -70,6 +82,8 @@ const Layout = ({ children, left, mid }) => {
   const delayedTagWidth = useDelayedValue<number>(tagColWidth, initialTagColWidth, 100);
   const delayedListWidth = useDelayedValue<number>(articleColWidth, initialArticleColWidth, 100);
 
+  const [isFloatingMenuOpen, setFloatingMenuOpenStatus] = useState(false);
+
   return (
     <Container>
       <StyledAppContainer>
@@ -79,6 +93,35 @@ const Layout = ({ children, left, mid }) => {
         {mid && <StyledListContainer var="article-col-width" ref={rightEle}>{mid}</StyledListContainer>}
         {mid && <Resizer left={delayedTagWidth + delayedListWidth} setData={value => gDispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>}
         <StyledArticleArea>{children}</StyledArticleArea>
+        {articleColWidth === 0 && <FloatingMenu
+          slideSpeed={500}
+          direction="up"
+          spacing={12}
+          isOpen={isFloatingMenuOpen}
+          style={{ position: 'absolute', right: '1rem', bottom: '1rem', zIndex: 1000 }}
+        >
+          <MainButton
+            onClick={() => setFloatingMenuOpenStatus(!isFloatingMenuOpen)}
+            iconResting={<PlusOutlined style={{ fontSize: '18px', color: 'var(--primary-font-color)' }} />}
+            iconActive={<MinusOutlined style={{ fontSize: '18px', color: 'var(--primary-font-color)'}} />}
+            size={56}
+            background="var(--container-bg-color)"
+          />
+          <ChildButton
+            icon={<UnorderedListOutlined style={{ color: 'var(--primary-font-color)' }} />}
+            key="list"
+            background="var(--container-bg-color)"
+            size={40}
+            onClick={() => vDispatch({ type: 'toggleArticleListDialog' })}
+          />
+          <ChildButton
+            icon={<UserOutlined style={{ color: 'var(--primary-font-color)' }} />}
+            key="user"
+            background="var(--container-bg-color)"
+            size={40}
+            onClick={() => vDispatch({ type: 'toggleAboutDialog' })}
+          />
+        </FloatingMenu>}
 
         <Drawer
           title={t('SETTING')}

@@ -6,21 +6,9 @@ import dateformat from 'dateformat';
 
 import { analyzeText } from '../utils/TextStatistics';
 
-import GeometryContext from '../context/GeometryContext';
-import VisibilityContext from '../context/VisibilityContext';
 import ThemeContext, { darkThemes } from '../context/ThemeContext';
 
 import {
-  FloatingMenu,
-  MainButton,
-  ChildButton,
-} from 'react-floating-button-menu';
-import {
-  PlusOutlined,
-  MinusOutlined,
-  UnorderedListOutlined,
-  UserOutlined,
-  InfoOutlined,
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
@@ -68,10 +56,7 @@ const StyledTag = styled.span`
 
 const Article = ({ markdownRemark }) => {
   const [infoVisible, setInfoVisible] = useState(false);
-  const [isOpen, setOpen] = useState(false);
   const { frontmatter: { title, tags } } = markdownRemark;
-  const { dispatch } = useContext(VisibilityContext);
-  const { state: { articleColWidth } } = useContext(GeometryContext);
   const { state: { currentTheme } } = useContext(ThemeContext);
 
   return (<StyledArticleContainer>
@@ -94,40 +79,6 @@ const Article = ({ markdownRemark }) => {
       >
         <InfoCircleOutlined />
       </Popover>
-      {articleColWidth === 0 && <FloatingMenu
-        slideSpeed={500}
-        direction="up"
-        spacing={12}
-        isOpen={isOpen}
-      >
-        <MainButton
-          onClick={() => setOpen(!isOpen)}
-          iconResting={<PlusOutlined style={{ fontSize: '18px' }} />}
-          iconActive={<MinusOutlined style={{ fontSize: '18px' }} />}
-          size={56}
-          backgroundColor="black"
-        />
-        <ChildButton
-          icon={<UnorderedListOutlined />}
-          key="list"
-          backgroundColor="white"
-          size={40}
-          onClick={() => dispatch({ type: 'toggleArticleListDialog' })}
-        />
-        <ChildButton
-          icon={<UserOutlined />}
-          key="user"
-          backgroundColor="white"
-          size={40}
-          onClick={() => dispatch({ type: 'toggleAboutDialog' })}
-        />
-        <ChildButton
-          icon={<InfoOutlined />}
-          key="info"
-          backgroundColor="white"
-          size={40}
-        />
-      </FloatingMenu>}
     </StyledArticleInfo>
   </StyledArticleContainer>)
 };
