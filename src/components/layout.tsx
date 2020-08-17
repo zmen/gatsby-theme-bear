@@ -3,33 +3,17 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { delay, map } from 'rxjs/operators';
 import { useObservable } from 'rxjs-hooks';
-import { Drawer, List } from 'antd';
 import Container from './container';
-import { useTranslation } from 'gatsby-plugin-react-i18next';
-
-import {
-  FloatingMenu,
-  MainButton,
-  ChildButton,
-} from 'react-floating-button-menu';
-import {
-  PlusOutlined,
-  MinusOutlined,
-  UnorderedListOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
 
 import GeometryContext from '../context/GeometryContext';
-import VisibilityContext from '../context/VisibilityContext';
-import PostContext from '../context/PostContext';
-import ThemeContext from '../context/ThemeContext';
 
 import Header from './header';
 import Resizer from './resizer';
 import '../utils/fontawesome';
-import ArticleListItem from './article-list-item';
-import GithubUserInfo from './github-user-info';
-import ThemePreview from './theme-preview';
+import FloatingMenu from './floating-menu';
+import DrawerSetting from './drawer-setting';
+import DrawerAbout from './drawer-about';
+import DrawerArticles from './drawer-articles'
 
 const StyledAppContainer = styled.div`
   box-shadow: var(--container-shadow);
@@ -63,26 +47,16 @@ const StyledArticleArea = styled.main`
 `;
 
 const Layout = ({ children, left, mid }) => {
-  const { t } = useTranslation();
-
   const leftEle = useRef(null);
   const rightEle = useRef(null);
 
-  const { posts } = useContext(PostContext);
   const { state: { tagColWidth, articleColWidth }, dispatch: gDispatch } = useContext(GeometryContext);
-  const {
-    state: { isSettingDialogVisible, isAboutDialogVisible, isArticleListDialogVisible },
-    dispatch: vDispatch,
-  } = useContext(VisibilityContext);
-  const { state: { themeList, currentTheme }, dispatch: tDispatch } = useContext(ThemeContext);
 
   const [initialTagColWidth] = useState(tagColWidth);
   const [initialArticleColWidth] = useState(articleColWidth);
 
   const delayedTagWidth = useDelayedValue<number>(tagColWidth, initialTagColWidth, 100);
   const delayedListWidth = useDelayedValue<number>(articleColWidth, initialArticleColWidth, 100);
-
-  const [isFloatingMenuOpen, setFloatingMenuOpenStatus] = useState(false);
 
   return (
     <Container>
@@ -93,90 +67,11 @@ const Layout = ({ children, left, mid }) => {
         {mid && <StyledListContainer var="article-col-width" ref={rightEle}>{mid}</StyledListContainer>}
         {mid && <Resizer left={delayedTagWidth + delayedListWidth} setData={value => gDispatch({type: 'setArticleColWidth', value})} relateEle={rightEle}></Resizer>}
         <StyledArticleArea>{children}</StyledArticleArea>
-        {articleColWidth === 0 && <FloatingMenu
-          slideSpeed={500}
-          direction="up"
-          spacing={12}
-          isOpen={isFloatingMenuOpen}
-          style={{ position: 'absolute', right: '1rem', bottom: '1rem', zIndex: 1000 }}
-        >
-          <MainButton
-            onClick={() => setFloatingMenuOpenStatus(!isFloatingMenuOpen)}
-            iconResting={<PlusOutlined style={{ fontSize: '18px', color: 'var(--primary-font-color)' }} />}
-            iconActive={<MinusOutlined style={{ fontSize: '18px', color: 'var(--primary-font-color)'}} />}
-            size={56}
-            background="var(--container-bg-color)"
-          />
-          <ChildButton
-            icon={<UnorderedListOutlined style={{ color: 'var(--primary-font-color)' }} />}
-            key="list"
-            background="var(--container-bg-color)"
-            size={40}
-            onClick={() => vDispatch({ type: 'toggleArticleListDialog' })}
-          />
-          <ChildButton
-            icon={<UserOutlined style={{ color: 'var(--primary-font-color)' }} />}
-            key="user"
-            background="var(--container-bg-color)"
-            size={40}
-            onClick={() => vDispatch({ type: 'toggleAboutDialog' })}
-          />
-        </FloatingMenu>}
 
-        <Drawer
-          title={t('SETTING')}
-          placement="right"
-          getContainer={false}
-          onClose={() => vDispatch({type: 'toggleSettingDialog'})}
-          visible={isSettingDialogVisible}
-          style={{ position: 'absolute' }}
-        >
-          <List
-            dataSource={themeList}
-            renderItem={themeName => (
-              <ThemePreview
-                onClick={() => tDispatch({type: 'setTheme', value: themeName})}
-                currentTheme={currentTheme}
-                key={themeName}
-                themeName={themeName}
-              />
-            )}
-          /> 
-        </Drawer>
-
-        <Drawer
-          title={t('ABOUT')}
-          placement="left"
-          getContainer={false}
-          onClose={() => vDispatch({type: 'toggleAboutDialog'})}
-          visible={isAboutDialogVisible}
-          style={{ position: 'absolute' }}
-        >
-          <GithubUserInfo auth={null} />
-        </Drawer>
-
-        <Drawer
-          title={t('articles')}
-          placement="left"
-          getContainer={false}
-          onClose={() => vDispatch({type: 'toggleArticleListDialog'})}
-          visible={isArticleListDialogVisible}
-          style={{ position: 'absolute' }}
-        >
-          <List
-            dataSource={posts}
-            renderItem={item => (
-              <ArticleListItem
-                matchText={null}
-                key={item.title}
-                title={item.title}
-                content={item.content}
-                slug={item.slug}
-                date={item.date}
-              />
-            )}
-            ></List>
-        </Drawer>
+        {articleColWidth === 0 && <FloatingMenu />} 
+        <DrawerSetting />
+        <DrawerAbout />
+        <DrawerArticles />
       </StyledAppContainer>
     </Container>
   );
