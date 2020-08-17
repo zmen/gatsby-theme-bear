@@ -56,6 +56,19 @@ export const GeometryProvider = ({children}) => {
     const articleColWidth = parseFloat(root.style.getPropertyValue('--article-col-width'));
     dispatch({ type: 'setTagColWidth', value: tagColWidth });
     dispatch({ type: 'setArticleColWidth', value: articleColWidth });
+
+    window.addEventListener('resize', resizeHandler, false);
+    function resizeHandler () {
+      if (window.innerWidth < 1200 && (state.tagColWidth !== 0 || state.articleColWidth !== 0)) {
+        dispatch({type: 'setTagColWidth', value: 0});
+        dispatch({type: 'setArticleColWidth', value: 0});
+      }
+    }
+    resizeHandler();
+
+    return () => {
+      window.removeEventListener('resize', resizeHandler);
+    };;
   }, []);
 
   return (

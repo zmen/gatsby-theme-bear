@@ -6,14 +6,14 @@ export const wrapRootElement = wrapWithRootElement
 const PresetScriptTag = () => {
   const code = `
     (function () {
-      let tagColWidth = '200px', articleColWidth = '300px';
-      const geometryContext = localStorage.getItem('geometry-context');
+      var tagColWidth = '200px', articleColWidth = '300px';
+      var geometryContext = localStorage.getItem('geometry-context');
       if (geometryContext) {
-        const context = JSON.parse(geometryContext);
+        var context = JSON.parse(geometryContext);
         if (context.tagColWidth !== null) tagColWidth = context.tagColWidth + 'px';
         if (context.articleColWidth !== null) articleColWidth = context.articleColWidth + 'px';
       }
-      const root = document.documentElement;
+      var root = document.documentElement;
       root.style.setProperty('--tag-col-width', tagColWidth);
       root.style.setProperty('--article-col-width', articleColWidth);
     })();
@@ -23,7 +23,8 @@ const PresetScriptTag = () => {
       var currentTheme = localStorage.getItem('current-theme');
       if (currentTheme) theme = currentTheme;
       var themes = localStorage.getItem('themes');
-      if (themes) themes = JSON.parse(themes);
+      if (!themes) return;
+      themes = JSON.parse(themes);
       var theme = themes[currentTheme];
       var root = document.documentElement;
       for (const [attr, value] of Object.entries(theme)) {

@@ -70,21 +70,6 @@ const Layout = ({ children, left, mid }) => {
   const delayedTagWidth = useDelayedValue<number>(tagColWidth, initialTagColWidth, 100);
   const delayedListWidth = useDelayedValue<number>(articleColWidth, initialArticleColWidth, 100);
 
-  useEffect(() => {
-    window.addEventListener('resize', resizeHandler, false);
-    function resizeHandler () {
-      if (window.innerWidth < 1200 && (tagColWidth !== 0 || articleColWidth !== 0)) {
-        gDispatch({type: 'setTagColWidth', value: 0});
-        gDispatch({type: 'setArticleColWidth', value: 0});
-      }
-    }
-    resizeHandler();
-
-    return () => {
-      window.removeEventListener('resize', resizeHandler);
-    }
-  }, []);
-
   return (
     <Container>
       <StyledAppContainer>
