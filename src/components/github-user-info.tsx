@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Octokit } from "@octokit/rest";
 import { Spin } from 'antd';
+import {
+  GithubOutlined,
+  MailOutlined,
+  BankOutlined,
+} from '@ant-design/icons';
 
 let octokit: Octokit = null;
 
@@ -16,6 +20,7 @@ const StyledAlignedUserInfo = styled(StyledUserInfo)`
 `;
 
 const StyledAvatar = styled.img`
+  width: 100%;
   border-radius: 100%;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 `;
@@ -54,15 +59,15 @@ const GithubUserInfo = ({ auth }) => {
     <StyledAvatar src={avatar} />
     <StyledUserName>{name}</StyledUserName>
     <div>
-      <FontAwesomeIcon icon="location-arrow" />
+      <BankOutlined />
       &nbsp;{myLocation}
     </div> 
     <div>
-      <FontAwesomeIcon icon="envelope" />
+      <MailOutlined />
       &nbsp;{email}
     </div> 
     <a href={url}>
-      <FontAwesomeIcon icon="github" />
+      <GithubOutlined />
       &nbsp;{url}
     </a> 
   </StyledUserInfo>);

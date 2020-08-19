@@ -1,12 +1,17 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { navigate } from '@reach/router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation } from "@reach/router";
 import VisibilityContext from '../context/VisibilityContext';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
+import {
+  HomeOutlined,
+  UserOutlined,
+  SettingTwoTone,
+  TagsTwoTone,
+} from '@ant-design/icons';
 
-import { Tag, tagIconMap } from '../utils/Tag';
+import { Tag } from '../utils/Tag';
 
 const menus: Tag[] = [
   new Tag('HOME', '/'),
@@ -54,7 +59,7 @@ const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
             paddingTop: '2px',
             paddingBottom: '2px',
           }}>
-            <FontAwesomeIcon icon={tagIconMap(d.tagname)} style={{ width: '16px' }} />
+            {renderTagIcon(d.tagname)}
             <TagName>{t(d.tagname)}</TagName>
           </div>
           {d.children && <Tags tags={d.children} level={level + 1} />}
@@ -63,6 +68,16 @@ const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
     </ul>
   );
 };
+
+function renderTagIcon (tagname: string) {
+  switch (tagname) {
+    case 'HOME': return <HomeOutlined />;
+    case 'ABOUT': return <UserOutlined />;
+    case 'SETTING': return <SettingTwoTone twoToneColor="var(--menu-font-color)" />;
+    default: return <TagsTwoTone twoToneColor="var(--menu-font-color)" />;
+  }
+
+}
 
 const StyledMenu = styled.div`
   padding-top: 32px;

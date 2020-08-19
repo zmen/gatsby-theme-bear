@@ -8,7 +8,6 @@ import Container from './container';
 
 import GeometryContext from '../context/GeometryContext';
 
-import '../utils/fontawesome';
 import Header from './header';
 import Resizer from './resizer';
 import FloatingMenu from './floating-menu';
