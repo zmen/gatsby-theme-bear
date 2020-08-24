@@ -1,13 +1,13 @@
 import React, { useReducer, useEffect } from 'react';
 import { globalHistory } from '@reach/router';
 
-interface Store {
+interface IStore {
   isSettingDialogVisible: boolean;
   isAboutDialogVisible: boolean;
   isArticleListDialogVisible: boolean;
 }
 
-const defaultStore: Store = {
+const defaultStore: IStore = {
   isSettingDialogVisible: false,
   isAboutDialogVisible: false,
   isArticleListDialogVisible: false,
@@ -15,14 +15,14 @@ const defaultStore: Store = {
 
 const VisibilityContext = React.createContext({ state: defaultStore, dispatch: null });
 
-interface ReducerAction<T> {
+interface IReducerAction<T> {
   type: string;
   value: T;
 }
 
 export default VisibilityContext;
 
-const reducer = (state: Store, action: ReducerAction<boolean>) => {
+const reducer = (state: IStore, action: IReducerAction<boolean>) => {
   const hasValue = typeof action.value !== 'undefined';
   switch (action.type) {
     case 'toggleSettingDialog':

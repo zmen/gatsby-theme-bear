@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import { themes } from '../source/theme';
 
-interface Store {
+interface IStore {
   themeList: Array<string>;
   theme: any;
   currentTheme: string;
@@ -9,7 +9,7 @@ interface Store {
 
 export const darkThemes = themes.darkThemes;
 
-const defaultStore: Store = {
+const defaultStore: IStore = {
   themeList: themes.themeList,
   theme: themes.map['Red Graphite'],
   currentTheme: 'Red Graphite',
@@ -19,12 +19,12 @@ const ThemeContext = React.createContext({ state: defaultStore, dispatch: null }
 
 export default ThemeContext;
 
-interface ReducerAction<T> {
+interface IReducerAction<T> {
   type: string;
   value: T;
 }
 
-const reducer = (state: Store, action: ReducerAction<string>) => {
+const reducer = (state: IStore, action: IReducerAction<string>) => {
   let result = null;
   switch (action.type) {
     case 'setTheme':

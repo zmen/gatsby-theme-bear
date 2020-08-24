@@ -6,12 +6,12 @@ const StyledContainer = styled.div`
   padding: 6px 12px;
 `;
 
-interface ThemePreviewBlockProps {
+interface IThemePreviewBlockProps {
   background: string;
   active: boolean;
 }
 
-const StyledBlock = styled.div<ThemePreviewBlockProps>`
+const StyledBlock = styled.div<IThemePreviewBlockProps>`
   background: ${props => props.background};
   padding: 8px 12px;
   border-radius: 4px;
@@ -21,11 +21,11 @@ const StyledBlock = styled.div<ThemePreviewBlockProps>`
   cursor: pointer;
 `;
 
-interface ThemeTitleProps {
+interface IThemeTitleProps {
   color: string;
 }
 
-const StyledTitle = styled.h1<ThemeTitleProps>`
+const StyledTitle = styled.h1<IThemeTitleProps>`
   color: ${props => props.color};
   font-size: 16px;
   font-weight: bold;
@@ -33,11 +33,11 @@ const StyledTitle = styled.h1<ThemeTitleProps>`
   padding: 0;
 `;
 
-interface ThemeTextProps {
+interface IThemeTextProps {
   color: string;
 }
 
-const StyledText = styled.p<ThemeTextProps>`
+const StyledText = styled.p<IThemeTextProps>`
   font-size: 12px;
   color: ${props => props.color};
 `;

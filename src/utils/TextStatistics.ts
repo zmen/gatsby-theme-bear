@@ -1,13 +1,13 @@
 import wc from 'word-count';
 
-interface TextStaticstic {
+interface ITextStaticstic {
   char: number;
   word: number;
   para: number;
   readingTime: string;
 }
 
-export function analyzeText (rawText: string): TextStaticstic {
+export function analyzeText (rawText: string): ITextStaticstic {
   const char = rawText.length;
   const word = wc(rawText);
   const para = rawText.split('\n').length;

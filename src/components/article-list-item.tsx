@@ -5,11 +5,11 @@ import { useLocation } from "@reach/router";
 
 import DateTransform from './date-transform';
 
-interface Props {
+interface IContainerProps {
   active: boolean;
 }
 
-const StyledContainer = styled.div<Props>`
+const StyledContainer = styled.div<IContainerProps>`
   display: flex;
   background: transparent;
   position: relative;
@@ -60,7 +60,7 @@ const StyledHighlightBar = styled.div`
   background: var(--primary-color);
 `;
 
-interface ArticleListItemProps {
+interface IArticleListItemProps {
   title: string;
   date: string;
   content: string;
@@ -68,7 +68,7 @@ interface ArticleListItemProps {
   matchText: string;
 }
 
-const ArticleListItem = ({ title, date, content, slug, matchText } : ArticleListItemProps) => {
+const ArticleListItem = ({ title, date, content, slug, matchText } : IArticleListItemProps) => {
   const locationInfo = useLocation();
 
   return (<StyledContainer active={locationInfo.pathname === slug}>

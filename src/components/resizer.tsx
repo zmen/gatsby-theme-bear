@@ -6,16 +6,16 @@ import { withLatestFrom, map, switchMap, takeUntil } from 'rxjs/operators';
 import { clearSelection } from '../utils/Browser'
 
 
-interface Props {
+interface IHolderProps {
   left: number;
   onMouseDown: any;
 }
 
-const StyledHolder = styled.div.attrs((props: Props) => ({
+const StyledHolder = styled.div.attrs((props: IHolderProps) => ({
   style: {
     left: props.left + 'px'
   }
-}))<Props>`
+}))<IHolderProps>`
   position: absolute;
   height: 100%;
   width: 10px;

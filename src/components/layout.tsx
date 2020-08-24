@@ -26,11 +26,13 @@ const StyledAppContainer = styled.div`
   overflow: hidden;
 `;
 
-interface Props { var: string; }
+interface IContainerProps {
+  var: string;
+}
 
-const StyledListContainer = styled.div.attrs((props: Props) => ({
+const StyledListContainer = styled.div.attrs((props: IContainerProps) => ({
   style: { width: `var(--${props.var})` }
-}))<Props>`
+}))<IContainerProps>`
   flex-shrink: 0;
   overflow: hidden;
   transition: width .3s;

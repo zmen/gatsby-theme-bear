@@ -1,23 +1,23 @@
 import React, { useReducer, useEffect } from 'react';
 
-interface Store {
+interface IStore {
   tagColWidth: number;
   articleColWidth: number;
 }
 
-const defaultStore = {
+const defaultStore: IStore = {
   tagColWidth: 200,
   articleColWidth: 300,
 };
 
 const GeometryContext = React.createContext({ state: defaultStore, dispatch: null });
 
-interface ReducerAction<T> {
+interface IReducerAction<T> {
   type: string;
   value: T;
 }
 
-const reducer = (state: Store, action: ReducerAction<number>) => {
+const reducer = (state: IStore, action: IReducerAction<number>) => {
   let result = null;
   switch (action.type) {
     case 'setTagColWidth':

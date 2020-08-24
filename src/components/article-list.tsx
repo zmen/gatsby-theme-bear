@@ -5,11 +5,11 @@ import ArticleListItem from './article-list-item';
 import GeometryContext from '../context/GeometryContext';
 import Search from './search';
 
-interface Props {
+interface IListProps {
   paddingTop: number;
 }
 
-const StyledList = styled.div.attrs((props: Props) => ({
+const StyledList = styled.div.attrs((props: IListProps) => ({
   style: { paddingTop: props.paddingTop + 'px' }
 }))<Props>`
   border-right: 1px solid var(--primary-border-color);
