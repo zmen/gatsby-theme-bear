@@ -69,6 +69,7 @@ const Article = ({ markdownRemark }) => {
     </StyledMarkdownBody>
     <StyledArticleInfo>
       <Popover
+        overlayClassName="custom-popover"
         arrowPointAtCenter
         trigger="click"
         title={null}
@@ -91,14 +92,14 @@ export default Article;
 const PopoverContentContainer = styled.div`
   margin-right: -16px;
   margin-bottom: -16px;
+  color: var(--primary-font-color);
 `;
 
 const PopoverContentLine = styled.div`
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--primary-border-color);
   padding: 6px 12px;
   display: flex;
   flex-wrap: wrap;
-
   &:last-child {
     border: none;
   }

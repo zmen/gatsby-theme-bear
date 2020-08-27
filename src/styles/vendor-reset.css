@@ -10,8 +10,13 @@
 }
 
 /* Ant-Design */
-.ant-popover-inner {
+.custom-popover .ant-popover-inner {
   border-radius: 10px!important;
+  background-color: var(--container-bg-color);
+  box-shadow: var(--container-shadow);
+}
+.custom-popover .ant-popover-arrow {
+  border-color: var(--container-bg-color)!important;
 }
 
 .ant-drawer-header {
