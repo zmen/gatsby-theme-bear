@@ -21,7 +21,7 @@ const StyledDate = styled.div`
   color: #b4b4b4;
   font-size: 14px;
   text-align: center;
-  margin-top: 8px;
+  margin-top: 14px;
 `;
 
 const StyledBlock = styled.div`
