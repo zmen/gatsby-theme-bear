@@ -63,7 +63,7 @@ const Article = ({ markdownRemark }) => {
     <StyledMarkdownBody>
       <StyledMarkdownFrontMatter>
         <h1>{title}</h1>
-        {tags.map((tag: string) => <StyledTag key={tag}>#{tag}</StyledTag>)}
+        {tags && tags.map((tag: string) => <StyledTag key={tag}>#{tag}</StyledTag>)}
       </StyledMarkdownFrontMatter>
       <div className={darkThemes.includes(currentTheme) ? 'markdown-body dark' : 'markdown-body'} dangerouslySetInnerHTML={{__html: markdownRemark.html}}></div>
     </StyledMarkdownBody>

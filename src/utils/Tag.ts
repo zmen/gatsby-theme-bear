@@ -18,7 +18,7 @@ export function flat (ary: Array<Array<string> | string>): string[] {
 }
 
 export function buildTags (tags: Array<Array<string>>): Array<Tag> {
-  const flatTags = flat(tags);
+  const flatTags = flat(tags.filter(Boolean));
   const topLevel = [];
   const tagMap = new Map();
   for (const tagPath of flatTags) {
@@ -43,7 +43,7 @@ export function buildTags (tags: Array<Array<string>>): Array<Tag> {
 }
 
 export function isTagInclude (blogTag: string[], tag: string): boolean {
-  if (!blogTag) return false;
   if (!tag) return true;
+  if (!blogTag) return false;
   return blogTag.some(tagList => tagList.split('/').includes(tag));
 }

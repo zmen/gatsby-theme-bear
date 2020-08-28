@@ -11,7 +11,7 @@ interface IListProps {
 
 const StyledList = styled.div.attrs((props: IListProps) => ({
   style: { paddingTop: props.paddingTop + 'px' }
-}))<Props>`
+}))<IListProps>`
   border-right: 1px solid var(--primary-border-color);
   width: 100%;
   height: 100%;
