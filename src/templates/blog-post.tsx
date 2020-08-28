@@ -39,6 +39,12 @@ export const query = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       rawMarkdownBody
+      timeToRead
+      wordCount {
+        paragraphs
+        sentences
+        words
+      }
       frontmatter {
         title
         tags

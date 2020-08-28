@@ -1,12 +1,8 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Popover } from 'antd';
-import { useTranslation } from 'gatsby-plugin-react-i18next';
-import dateformat from 'dateformat';
-
-import { analyzeText } from '../utils/TextStatistics';
-
 import ThemeContext, { darkThemes } from '../context/ThemeContext';
+import ArticleInfoPopover from './article-info-popover';
 
 import {
   InfoCircleOutlined,
@@ -74,7 +70,14 @@ const Article = ({ markdownRemark }) => {
         trigger="click"
         title={null}
         placement="bottomRight"
-        content={renderPopoverContent(markdownRemark.frontmatter.created, markdownRemark.rawMarkdownBody)}
+        content={<ArticleInfoPopover
+          created={markdownRemark.frontmatter.created}
+          rawMarkdownBody={markdownRemark.rawMarkdownBody}
+          timeToRead={markdownRemark.timeToRead}
+          paragraphs={markdownRemark.wordCount.paragraphs}
+          sentences={markdownRemark.wordCount.sentences}
+          words={markdownRemark.wordCount.words}
+        />}
         visible={infoVisible}
         onVisibleChange={setInfoVisible}
       >
@@ -85,78 +88,3 @@ const Article = ({ markdownRemark }) => {
 };
 
 export default Article;
-
-
-/** Popover Content */
-
-const PopoverContentContainer = styled.div`
-  margin-right: -16px;
-  margin-bottom: -16px;
-  color: var(--primary-font-color);
-`;
-
-const PopoverContentLine = styled.div`
-  border-bottom: 1px solid var(--primary-border-color);
-  padding: 6px 12px;
-  display: flex;
-  flex-wrap: wrap;
-  &:last-child {
-    border: none;
-  }
-`;
-
-const PopoverContentTipText = styled.div`
-  font-size: 12px;
-  color: #ccc;
-`;
-
-const PopoverContentBlock = styled.div`
-  font-size: 16px;
-  width: 50%;
-  padding-bottom: 6px;
-`;
-
-const PopoverContentDay = styled.div`
-  flex: 1;
-  font-size: 32px;
-  font-weight: 500;
-`;
-
-const PopoverContentDate = styled.div`
-  flex: 4;
-  padding-left: 16px;
-`;
-
-function renderPopoverContent (created: string, rawMarkdownBody: string) {
-  const createdDate = new Date(created);
-  const day = dateformat(createdDate, 'dd');
-  const date = dateformat(createdDate, 'mm yyyy hh:MM');
-
-  const { t } = useTranslation();
-
-  const { char, word, para, readingTime } = analyzeText(rawMarkdownBody);
-
-  return <PopoverContentContainer>
-    <PopoverContentLine>
-      <PopoverContentDay>{day}</PopoverContentDay>
-      <PopoverContentDate>
-        <div>{date}</div>
-        <PopoverContentTipText>{t('create date')}</PopoverContentTipText>
-      </PopoverContentDate>
-    </PopoverContentLine>
-    <PopoverContentLine>
-      <PopoverContentBlock>
-        <div>{word}</div><PopoverContentTipText>{t('words')}</PopoverContentTipText>
-      </PopoverContentBlock >
-      <PopoverContentBlock>
-        <div>{char}</div><PopoverContentTipText>{t('characters')}</PopoverContentTipText>
-      </PopoverContentBlock>
-      <PopoverContentBlock>
-        <div>{readingTime}</div><PopoverContentTipText>{t('reading time')}</PopoverContentTipText>
-      </PopoverContentBlock>
-      <PopoverContentBlock>
-        <div>{para}</div><PopoverContentTipText>{t('paragraphs')}</PopoverContentTipText>
-      </PopoverContentBlock>
-    </PopoverContentLine>
-  </PopoverContentContainer>;
-}
