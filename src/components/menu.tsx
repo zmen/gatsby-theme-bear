@@ -7,8 +7,8 @@ import { useTranslation } from 'gatsby-plugin-react-i18next';
 import {
   HomeOutlined,
   UserOutlined,
-  SettingTwoTone,
   TagsTwoTone,
+  BgColorsOutlined,
 } from '@ant-design/icons';
 
 import { Tag } from '../utils/Tag';
@@ -73,7 +73,7 @@ function renderTagIcon (tagname: string) {
   switch (tagname) {
     case 'HOME': return <HomeOutlined />;
     case 'ABOUT': return <UserOutlined />;
-    case 'SETTING': return <SettingTwoTone twoToneColor="var(--menu-font-color)" />;
+    case 'SETTING': return <BgColorsOutlined />;
     default: return <TagsTwoTone twoToneColor="var(--menu-font-color)" />;
   }
 

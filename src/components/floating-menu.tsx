@@ -9,6 +9,7 @@ import {
   MinusOutlined,
   UnorderedListOutlined,
   UserOutlined,
+  BgColorsOutlined,
 } from '@ant-design/icons';
 
 import VisibilityContext from '../context/VisibilityContext';
@@ -44,6 +45,13 @@ const FloatingButtonMenu = () => {
       background="var(--container-bg-color)"
       size={40}
       onClick={() => dispatch({ type: 'toggleAboutDialog' })}
+    />
+    <ChildButton
+      icon={<BgColorsOutlined style={{ color: 'var(--primary-font-color)' }} />}
+      key="colors"
+      background="var(--container-bg-color)"
+      size={40}
+      onClick={() => dispatch({ type: 'toggleSettingDialog' })}
     />
   </FloatingMenu>);
 };

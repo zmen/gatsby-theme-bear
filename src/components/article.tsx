@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Popover } from 'antd';
 import ThemeContext, { darkThemes } from '../context/ThemeContext';
 import ArticleInfoPopover from './article-info-popover';
+import { navigate } from '@reach/router';
 
 import {
   InfoCircleOutlined,
@@ -31,6 +32,7 @@ const StyledArticleInfo = styled.div`
 `;
 
 const StyledMarkdownBody = styled.div`
+  width: 100%;
   padding: 32px 0 120px;
 `;
 
@@ -48,6 +50,7 @@ const StyledTag = styled.span`
   padding: 2px 12px;
   white-space: nowrap;
   font-size: 14px;
+  cursor: pointer;
 `;
 
 const Article = ({ markdownRemark }) => {
@@ -55,11 +58,16 @@ const Article = ({ markdownRemark }) => {
   const { frontmatter: { title, tags } } = markdownRemark;
   const { state: { currentTheme } } = useContext(ThemeContext);
 
+  function onClickTag (fullTagName: string) {
+    const lastTag = fullTagName.split('/').reverse()[0];
+    navigate(`?tag=${lastTag}`);
+  }
+
   return (<StyledArticleContainer>
     <StyledMarkdownBody>
       <StyledMarkdownFrontMatter>
         <h1>{title}</h1>
-        {tags && tags.map((tag: string) => <StyledTag key={tag}>#{tag}</StyledTag>)}
+        {tags && tags.map((tag: string) => <StyledTag key={tag} onClick={() => { onClickTag(tag) }}>#{tag}</StyledTag>)}
       </StyledMarkdownFrontMatter>
       <div className={darkThemes.includes(currentTheme) ? 'markdown-body dark' : 'markdown-body'} dangerouslySetInnerHTML={{__html: markdownRemark.html}}></div>
     </StyledMarkdownBody>
