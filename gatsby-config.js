@@ -59,7 +59,7 @@ module.exports = {
       options: {
         path: `${__dirname}/locales`,
         languages: [`en`, `zh`],
-        defaultLanguage: `zh`,
+        redirect: false,
   
         // you can pass any i18next options
         // pass following options to allow message content as a key

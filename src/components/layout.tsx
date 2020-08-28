@@ -21,6 +21,7 @@ const StyledAppContainer = styled.div`
   width: var(--container-initial-width);
   height: var(--container-initial-height);
   background: var(--container-bg-color);
+  transition: background-color 1s;
   position: relative;
   display: flex;
   overflow: hidden;

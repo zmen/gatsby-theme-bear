@@ -1,6 +1,7 @@
 const name = 'Red Graphite';
 
 const source = {
+  'body-bg-color': '#268785',
   'menu-bg-color': '#1a1c1d',
   'menu-font-color': '#eee',
   'primary-color': '#ce3334',

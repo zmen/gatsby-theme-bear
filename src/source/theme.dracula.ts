@@ -1,6 +1,7 @@
 const name = 'Dracula';
 
 const source = {
+  'body-bg-color': '#86C166',
   'menu-bg-color': '#1a1b24',
   'menu-font-color': '#7ce4fc',
   'primary-color': '#8f74b8',

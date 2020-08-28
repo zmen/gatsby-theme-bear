@@ -1,6 +1,7 @@
 const name = 'Solarized Light';
 
 const source = {
+  'body-bg-color': '#cc543a',
   'menu-bg-color': '#475b62',
   'menu-font-color': '#e2dac0',
   'primary-color': '#ce3334',

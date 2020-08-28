@@ -18,6 +18,8 @@ const Container = styled(ContainerLayout)`
   --container-border-radius: 4px;
   --article-padding: 64px;
 
+  transition: background-color 1s;
+  background-color: var(--body-bg-color);
   @media (max-width: 1200px) {
     --container-initial-height: 100%;
     --container-initial-width: 100%;
