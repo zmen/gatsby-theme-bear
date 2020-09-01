@@ -30,9 +30,9 @@ const Header = () => {
 
   return (
     <StyledContainer>
-      <StyledDot color="#fc4848" onClick={() => dispatch({type: 'resetLayout'}) } />
-      <StyledDot color="#fdb625" onClick={() => dispatch({type: 'switchNoTagMode'})}/>
-      <StyledDot color="#2ac933" onClick={() => dispatch({type: 'switchZenMode'})}/>
+      <StyledDot color="#fc4848" key="1" onClick={() => dispatch({type: 'resetLayout'}) } />
+      <StyledDot color="#fdb625" key="2" onClick={() => dispatch({type: 'switchNoTagMode'})}/>
+      <StyledDot color="#2ac933" key="3" onClick={() => dispatch({type: 'switchZenMode'})}/>
     </StyledContainer>
   );
 };

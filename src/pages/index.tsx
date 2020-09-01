@@ -6,6 +6,7 @@ import PostContext from '../context/PostContext';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
+import Home from '../components/home';
 import Menu from '../components/menu';
 import ArticleList from '../components/article-list';
 import queryString from 'query-string';
@@ -33,7 +34,7 @@ const IndexPage = () => {
     >
       <SEO title="Home" />
       <Container>
-        <h1>A Simple Gatsby Blog Starter</h1>
+        <Home />
       </Container>
     </Layout>
   );
