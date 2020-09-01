@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { withPrefix } from 'gatsby';
 import { navigate } from '@reach/router';
 import { useLocation } from "@reach/router";
 import VisibilityContext from '../context/VisibilityContext';
@@ -41,7 +42,7 @@ const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
       dispatch({type: 'toggleAboutDialog'});
       return;
     }
-    navigate(tag.to ? tag.to : `?tag=${tag.tagname}`);
+    navigate(tag.to ? withPrefix(tag.to) : `?tag=${tag.tagname}`);
   }
 
   return (
