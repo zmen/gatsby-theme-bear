@@ -13,5 +13,5 @@ npm run develop // run example locally
 npm run build // build example site
 ```
 
-For more information, please refers to [README](./gatsby-theme-bear/README.md)
+For more information, please refer to [README](./gatsby-theme-bear/README.md)
 

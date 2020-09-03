@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-  Gatsby Bear Starter
+  Gatsby Theme Bear
 </h1>
 
 
@@ -34,17 +34,17 @@ First of all, create a directory with `react`, `react-dom` and `gatsby` as devDe
     "develop": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve"
-  },
-  "devDependencies": {
-    "gatsby": "^2.24.53",
-    "gatsby-theme-bear": "0.1.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
   }
 }
 ```
 
-Then install `gatsby-theme-bear` and include it in `gatsby-config.js`.
+Then install dependencies:
+
+```shell
+npm i react react-dom gatsby gatsby-theme-bear
+```
+
+Finally, create and config `gatsby-config.js`:
 
 ```javascript
 const path = require('path');
@@ -66,9 +66,4 @@ module.exports = {
 ```
 
 Make sure that you have markdown files in your content path.
-
 Run `npm run develop` to develop locally.
-
-Run `npm run build` to generate dist files.
-
-Run `npm run serve` to test dist files.

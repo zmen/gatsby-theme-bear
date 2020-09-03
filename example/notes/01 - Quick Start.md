@@ -25,12 +25,10 @@ The content of `gatsby-config.js` should be:
 ```javascript
 module.exports = {
   siteMetadata: {
-    titleMetadata: {
-      title: 'my-awesome-site',
-      description: 'my awesome description',
-      author: 'my-name',
-      githubAuthToken: 'github auth token, used to display github profiles',
-    }
+    title: 'my-awesome-site',
+    description: 'my awesome description',
+    author: 'my-name',
+    githubAuthToken: 'github auth token, used to display github profiles',
   }
 }
 ```

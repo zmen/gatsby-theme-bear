@@ -2,7 +2,7 @@
   "name": "gatsby-theme-bear",
   "main": "index.js",
   "description": "A simple gatsby theme which inspired by Bear App",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Zmen <sandoverflow@gmail.com>",
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
