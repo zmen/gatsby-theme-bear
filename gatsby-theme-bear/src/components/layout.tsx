@@ -37,6 +37,7 @@ const StyledListContainer = styled.div.attrs((props: IContainerProps) => ({
   flex-shrink: 0;
   overflow: hidden;
   transition: width .3s;
+  border-right: 1px solid var(--primary-border-color);
 `;
 
 const StyledArticleArea = styled.main`
