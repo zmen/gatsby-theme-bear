@@ -5,7 +5,11 @@
   "license": "MIT",
   "scripts": {
     "develop": "gatsby develop",
-    "build": "gatsby build"
+    "build": "gatsby build",
+    "build:prefix": "gatsby build --prefix-paths",
+    "clean": "gatsby clean",
+    "serve": "gatsby serve",
+    "serve:prefix": "gatsby serve --prefix-paths"
   },
   "devDependencies": {
     "gatsby": "^2.24.53",

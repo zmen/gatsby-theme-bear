@@ -4,7 +4,11 @@
   "license": "MIT",
   "scripts": {
     "develop": "yarn workspace example develop",
-    "build": "yarn workspace example build"
+    "build": "yarn workspace example build",
+    "build:prefix": "yarn workspace example build:prefix",
+    "clean": "yarn workspace example clean",
+    "serve": "yarn workspace example serve",
+    "serve:prefix": "yarn workspace example serve:prefix"
   },
   "workspaces": [
     "gatsby-theme-bear",
