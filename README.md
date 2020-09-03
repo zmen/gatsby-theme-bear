@@ -2,6 +2,9 @@
 
 This repo contains both the source code for `gatsby-theme-bear` and an example site.
 
+![DEMO](./demo.png)
+[Online demo](https://zmen.github.io/gatsby-theme-bear/)
+
 ## Quick Start
 
 ```shell
