@@ -15,7 +15,7 @@ export default PostContext;
 export const Provider = ({ children }) => {
   const data = useStaticQuery(graphql`
     query {
-      allMarkdownRemark {
+      allMarkdownRemark(sort: {fields: frontmatter___title}) {
         edges {
           node {
             frontmatter {

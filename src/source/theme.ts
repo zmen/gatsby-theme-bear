@@ -1,6 +1,7 @@
 import redGraphite from './theme.red-graphite';
 import solarizedLight from './theme.solarized-light';
 import dracula from './theme.dracula';
+import customThemes from './theme.custom';
 
 export class Theme {
   constructor (public name: string, public source: Object, public darkMode: boolean) {}
@@ -45,5 +46,6 @@ export const themes = new Themes([
   new Theme(redGraphite.name, redGraphite.source, redGraphite.darkMode),
   new Theme(solarizedLight.name, solarizedLight.source, solarizedLight.darkMode),
   new Theme(dracula.name, dracula.source, dracula.darkMode),
+  ...customThemes.map(t => new Theme(t.name, t.source, t.darkMode))
 ]);
 

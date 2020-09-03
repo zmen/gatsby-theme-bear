@@ -26,13 +26,17 @@ const StyledDot = styled.div`
 `;
 
 const Header = () => {
-  const { dispatch } = useContext(GeometryContext);
+  const { state: { tagColWidth, articleColWidth }, dispatch } = useContext(GeometryContext);
+
+  const color1 = tagColWidth !== 0 && articleColWidth !== 0 ? '#eee' : '#fc4848';
+  const color2 = tagColWidth === 0 && articleColWidth !== 0 ? '#eee' : '#fdb625';
+  const color3 = tagColWidth === 0 && articleColWidth === 0 ? '#eee' : '#2ac933';
 
   return (
     <StyledContainer>
-      <StyledDot color="#fc4848" key="1" onClick={() => dispatch({type: 'resetLayout'}) } />
-      <StyledDot color="#fdb625" key="2" onClick={() => dispatch({type: 'switchNoTagMode'})}/>
-      <StyledDot color="#2ac933" key="3" onClick={() => dispatch({type: 'switchZenMode'})}/>
+      <StyledDot color={color1} key="1" onClick={() => dispatch({type: 'resetLayout'}) } />
+      <StyledDot color={color2} key="2" onClick={() => dispatch({type: 'switchNoTagMode'})}/>
+      <StyledDot color={color3} key="3" onClick={() => dispatch({type: 'switchZenMode'})}/>
     </StyledContainer>
   );
 };
