@@ -27,7 +27,7 @@ const Tags = ({ tags, level = 1 } : { tags: Tag[], level: number }) => {
 
   const { t } = useTranslation();
   const locationInfo = useLocation();
-  const tagMatch = locationInfo.search.match(/[\&\?]tag=(\w+)/);
+  const tagMatch = decodeURIComponent(locationInfo.search).match(/[\&\?]tag=([\u4e00-\u9fa5_a-zA-Z0-9]+)/);
   const matchedTag = tagMatch ? tagMatch[1] : null;
 
   const { dispatch } = useContext(VisibilityContext);
