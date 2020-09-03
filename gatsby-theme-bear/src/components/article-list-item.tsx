@@ -72,7 +72,7 @@ const ArticleListItem = ({ title, date, content, slug, matchText } : IArticleLis
   const locationInfo = useLocation();
 
   return (<StyledContainer active={locationInfo.pathname === slug}>
-    {locationInfo.pathname === slug && <StyledHighlightBar />}
+    {decodeURIComponent(locationInfo.pathname) === slug && <StyledHighlightBar />}
     <StyledDate><DateTransform date={date} /></StyledDate> 
     <Link to={slug + locationInfo.search}>
       <StyledBlock>
