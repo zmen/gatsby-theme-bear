@@ -1,10 +1,9 @@
 {
   "name": "gatsby-theme-bear",
-  "private": true,
   "main": "index.js",
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A simple gatsby theme which inspired by Bear App",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Zmen <sandoverflow@gmail.com>",
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@fortawesome/react-fontawesome": "^0.1.11",
@@ -47,7 +46,8 @@
   },
   "keywords": [
     "gatsby",
-    "gatsby-plugin"
+    "gatsby-plugin",
+    "gatsby-theme"
   ],
   "license": "MIT",
   "scripts": {
@@ -56,14 +56,13 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "clean": "gatsby clean"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/zmen/gatsby-theme-bear"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/zmen/gatsby-theme-bear/issues"
   }
 }
